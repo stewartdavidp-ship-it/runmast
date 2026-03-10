@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Powered by Mast — Lockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  .panel {
+    padding: 80px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 64px;
+  }
+  .light { background: #ffffff; }
+  .navy  { background: #0e1c2e; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: -52px;
+  }
+  .sl-light { color: #ccc; }
+  .sl-dark  { color: #1e3a5a; }
+
+  .divider-light { width: 100%; height: 1px; background: #eee; }
+  .divider-dark  { width: 100%; height: 1px; background: #1a2e44; }
+
+  /* ── THE LOCKUP ── */
+  .lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .wordmark-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .wm {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .wm-light { color: #111111; }
+  .wm-dark  { color: #f0ebe0; }
+
+  .powered-by {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 1;
+  }
+  .pb-light { color: #888; }
+  .pb-dark  { color: #6a8aaa; }
+
+  /* ── SIZES ── */
+  .size-full .wm     { font-size: 56px; }
+  .size-full .powered-by { font-size: 13px; }
+  .size-full { gap: 22px; }
+  .size-full svg { width: 32px; height: 64px; }
+
+  .size-md .wm     { font-size: 28px; }
+  .size-md .powered-by { font-size: 10px; }
+  .size-md { gap: 12px; }
+  .size-md svg { width: 16px; height: 32px; }
+
+  .size-sm .wm     { font-size: 16px; }
+  .size-sm .powered-by { font-size: 8px; }
+  .size-sm { gap: 7px; }
+  .size-sm svg { width: 10px; height: 20px; }
+
+  /* ── IN-CONTEXT FOOTER ── */
+  .mock-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(14,28,46,0.08);
+    max-width: 420px;
+  }
+  .mock-body {
+    padding: 20px 24px;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.5;
+  }
+  .mock-body.dk { background: #0e1c2e; color: #9ca3af; }
+  .mock-body.lt { background: white; }
+  .mock-footer {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+  }
+  .mock-footer.lt {
+    background: #fafafa;
+    border-top: 1px solid rgba(14,28,46,0.06);
+    color: #9ca3af;
+  }
+  .mock-footer.dk {
+    background: #0a1520;
+    border-top: 1px solid rgba(240,235,224,0.06);
+    color: #4b6070;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ LIGHT ═══ -->
+<div class="panel light">
+
+  <div class="section-label sl-light">Full size</div>
+  <div class="divider-light"></div>
+
+  <a href="https://runmast.com" class="lockup size-full">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#111111"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#111111" opacity="0.18"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-light">Mast</div>
+      <div class="powered-by pb-light">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-light"></div>
+  <div class="section-label sl-light">Medium (footer use)</div>
+  <div class="divider-light"></div>
+
+  <a href="https://runmast.com" class="lockup size-md">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#111111"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#111111" opacity="0.18"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-light">Mast</div>
+      <div class="powered-by pb-light">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-light"></div>
+  <div class="section-label sl-light">Small</div>
+  <div class="divider-light"></div>
+
+  <a href="https://runmast.com" class="lockup size-sm">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#111111"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#111111" opacity="0.18"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-light">Mast</div>
+      <div class="powered-by pb-light">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-light"></div>
+  <div class="section-label sl-light">In context — light footer</div>
+  <div class="divider-light"></div>
+
+  <div class="mock-card">
+    <div class="mock-body lt"><strong>Shir Glassworks</strong><br>Handmade glass art · Studio + Events</div>
+    <div class="mock-footer lt">
+      <span>© 2026 Shir Glassworks</span>
+      <a href="https://runmast.com" class="lockup size-sm" style="opacity:0.55; text-decoration:none;">
+        <svg viewBox="0 0 32 64" fill="none" style="width:8px;height:16px;">
+          <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#111111"/>
+          <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+          <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#111111" opacity="0.18"/>
+        </svg>
+        <div class="wordmark-stack">
+          <div class="wm wm-light" style="font-size:13px">Mast</div>
+          <div class="powered-by pb-light" style="font-size:8px">Powered by Mast</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ DARK ═══ -->
+<div class="panel navy">
+
+  <div class="section-label sl-dark">Full size</div>
+  <div class="divider-dark"></div>
+
+  <a href="https://runmast.com" class="lockup size-full">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#f0ebe0"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#f0ebe0" opacity="0.25"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-dark">Mast</div>
+      <div class="powered-by pb-dark">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-dark"></div>
+  <div class="section-label sl-dark">Medium (footer use)</div>
+  <div class="divider-dark"></div>
+
+  <a href="https://runmast.com" class="lockup size-md">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#f0ebe0"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#f0ebe0" opacity="0.25"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-dark">Mast</div>
+      <div class="powered-by pb-dark">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-dark"></div>
+  <div class="section-label sl-dark">Small</div>
+  <div class="divider-dark"></div>
+
+  <a href="https://runmast.com" class="lockup size-sm">
+    <svg viewBox="0 0 32 64" fill="none">
+      <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#f0ebe0"/>
+      <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+      <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#f0ebe0" opacity="0.25"/>
+    </svg>
+    <div class="wordmark-stack">
+      <div class="wm wm-dark">Mast</div>
+      <div class="powered-by pb-dark">Powered by Mast</div>
+    </div>
+  </a>
+
+  <div class="divider-dark"></div>
+  <div class="section-label sl-dark">In context — dark footer</div>
+  <div class="divider-dark"></div>
+
+  <div class="mock-card">
+    <div class="mock-body dk"><strong style="color:#f0ebe0">Order Confirmed</strong><br>Thank you for your purchase!</div>
+    <div class="mock-footer dk">
+      <span>Shir Glassworks</span>
+      <a href="https://runmast.com" class="lockup" style="opacity:0.5; text-decoration:none; gap:6px;">
+        <svg viewBox="0 0 32 64" fill="none" style="width:8px;height:16px;">
+          <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#f0ebe0"/>
+          <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+          <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#f0ebe0" opacity="0.25"/>
+        </svg>
+        <div class="wordmark-stack">
+          <div class="wm wm-dark" style="font-size:13px">Mast</div>
+          <div class="powered-by pb-dark" style="font-size:8px">Powered by Mast</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mast — Final Direction</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    gap: 0;
+  }
+
+  /* ── LIGHT MODE ── */
+  .light {
+    background: #ffffff;
+    padding: 80px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 72px;
+  }
+
+  /* ── DARK MODE ── */
+  .dark {
+    background: #0e1c2e;
+    padding: 80px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 72px;
+  }
+
+  /* ── LOGO LOCKUP ── */
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .lockup-full {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .wordmark-tagline {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .wm-light {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 56px;
+    letter-spacing: -0.025em;
+    color: #111111;
+    line-height: 1;
+  }
+
+  .wm-dark {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 56px;
+    letter-spacing: -0.025em;
+    color: #f0ebe0;
+    line-height: 1;
+  }
+
+  .tag-light {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #888;
+    line-height: 1;
+  }
+
+  .tag-dark {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #6a8aaa;
+    line-height: 1;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: -48px;
+  }
+  .section-label-light { color: #ccc; }
+  .section-label-dark  { color: #1e3a5a; }
+
+  /* ── DIVIDER ── */
+  .divider-light { width: 100%; height: 1px; background: #eee; }
+  .divider-dark  { width: 100%; height: 1px; background: #1a2e44; }
+
+  /* ── ICON SIZES ── */
+  .icon-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+  }
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .icon-size-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .icon-size-label-light { color: #ccc; }
+  .icon-size-label-dark  { color: #2a4a6a; }
+
+  .app-icon {
+    border-radius: 22%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .app-icon-light { background: #0e1c2e; }
+  .app-icon-dark  { background: #f5f2ee; }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ LIGHT MODE ══════════════════════════════ -->
+<div class="light">
+
+  <div class="section-label section-label-light">Light mode</div>
+  <div class="divider-light"></div>
+
+  <!-- Primary lockup: icon left, wordmark+tagline right -->
+  <div>
+    <div class="lockup">
+      <!-- The pole + two flags, no crossbeam -->
+      <svg width="32" height="64" viewBox="0 0 32 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- pole -->
+        <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#111111"/>
+        <!-- flag 1: upper, larger, amber -->
+        <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+        <!-- flag 2: lower, smaller, dark -->
+        <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#111111" opacity="0.18"/>
+      </svg>
+      <div class="wordmark-tagline">
+        <div class="wm-light">Mast</div>
+        <div class="tag-light">You built it, we help you run it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider-light"></div>
+
+  <!-- Wordmark only (no icon) -->
+  <div class="section-label section-label-light">Wordmark only</div>
+  <div class="wm-light" style="font-size:72px;">Mast</div>
+  <div class="tag-light" style="margin-top:-48px;">You built it, we help you run it.</div>
+
+  <div class="divider-light"></div>
+
+  <!-- Icon at multiple sizes -->
+  <div class="section-label section-label-light">App icon</div>
+  <div class="icon-row">
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-light" style="width:96px;height:96px;">
+        <svg width="44" height="76" viewBox="0 0 44 76" fill="none">
+          <rect x="19.5" y="0" width="5" height="76" rx="2.5" fill="#f0ebe0"/>
+          <path d="M24.5 3 L44 13 L24.5 24 Z" fill="#e8a84c"/>
+          <path d="M24.5 28 L38 35.5 L24.5 44 Z" fill="#f0ebe0" opacity="0.35"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-light">96px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-light" style="width:72px;height:72px;">
+        <svg width="32" height="56" viewBox="0 0 32 56" fill="none">
+          <rect x="14" y="0" width="4" height="56" rx="2" fill="#f0ebe0"/>
+          <path d="M18 2 L32 9.5 L18 18 Z" fill="#e8a84c"/>
+          <path d="M18 21 L28 27 L18 33 Z" fill="#f0ebe0" opacity="0.35"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-light">72px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-light" style="width:48px;height:48px;">
+        <svg width="22" height="38" viewBox="0 0 22 38" fill="none">
+          <rect x="9.5" y="0" width="3" height="38" rx="1.5" fill="#f0ebe0"/>
+          <path d="M12.5 1.5 L22 6.5 L12.5 12 Z" fill="#e8a84c"/>
+          <path d="M12.5 14 L19 18 L12.5 22 Z" fill="#f0ebe0" opacity="0.35"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-light">48px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-light" style="width:32px;height:32px;">
+        <svg width="14" height="24" viewBox="0 0 14 24" fill="none">
+          <rect x="6" y="0" width="2" height="24" rx="1" fill="#f0ebe0"/>
+          <path d="M8 1 L14 4 L8 8 Z" fill="#e8a84c"/>
+          <path d="M8 10 L13 13 L8 16 Z" fill="#f0ebe0" opacity="0.35"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-light">32px</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════ DARK MODE ══════════════════════════════ -->
+<div class="dark">
+
+  <div class="section-label section-label-dark">Dark mode</div>
+  <div class="divider-dark"></div>
+
+  <!-- Primary lockup -->
+  <div>
+    <div class="lockup">
+      <svg width="32" height="64" viewBox="0 0 32 64" fill="none">
+        <rect x="14" y="0" width="3.5" height="64" rx="1.75" fill="#f0ebe0"/>
+        <path d="M17.5 3 L32 11 L17.5 20 Z" fill="#e8a84c"/>
+        <path d="M17.5 24 L28 30.5 L17.5 38 Z" fill="#f0ebe0" opacity="0.25"/>
+      </svg>
+      <div class="wordmark-tagline">
+        <div class="wm-dark">Mast</div>
+        <div class="tag-dark">You built it, we help you run it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider-dark"></div>
+
+  <!-- Wordmark only -->
+  <div class="section-label section-label-dark">Wordmark only</div>
+  <div class="wm-dark" style="font-size:72px;">Mast</div>
+  <div class="tag-dark" style="margin-top:-48px;">You built it, we help you run it.</div>
+
+  <div class="divider-dark"></div>
+
+  <!-- Icon sizes -->
+  <div class="section-label section-label-dark">App icon</div>
+  <div class="icon-row">
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-dark" style="width:96px;height:96px;">
+        <svg width="44" height="76" viewBox="0 0 44 76" fill="none">
+          <rect x="19.5" y="0" width="5" height="76" rx="2.5" fill="#0e1c2e"/>
+          <path d="M24.5 3 L44 13 L24.5 24 Z" fill="#e8a84c"/>
+          <path d="M24.5 28 L38 35.5 L24.5 44 Z" fill="#0e1c2e" opacity="0.2"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-dark">96px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-dark" style="width:72px;height:72px;">
+        <svg width="32" height="56" viewBox="0 0 32 56" fill="none">
+          <rect x="14" y="0" width="4" height="56" rx="2" fill="#0e1c2e"/>
+          <path d="M18 2 L32 9.5 L18 18 Z" fill="#e8a84c"/>
+          <path d="M18 21 L28 27 L18 33 Z" fill="#0e1c2e" opacity="0.2"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-dark">72px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-dark" style="width:48px;height:48px;">
+        <svg width="22" height="38" viewBox="0 0 22 38" fill="none">
+          <rect x="9.5" y="0" width="3" height="38" rx="1.5" fill="#0e1c2e"/>
+          <path d="M12.5 1.5 L22 6.5 L12.5 12 Z" fill="#e8a84c"/>
+          <path d="M12.5 14 L19 18 L12.5 22 Z" fill="#0e1c2e" opacity="0.2"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-dark">48px</span>
+    </div>
+
+    <div class="icon-item">
+      <div class="app-icon app-icon-dark" style="width:32px;height:32px;">
+        <svg width="14" height="24" viewBox="0 0 14 24" fill="none">
+          <rect x="6" y="0" width="2" height="24" rx="1" fill="#0e1c2e"/>
+          <path d="M8 1 L14 4 L8 8 Z" fill="#e8a84c"/>
+          <path d="M8 10 L13 13 L8 16 Z" fill="#0e1c2e" opacity="0.2"/>
+        </svg>
+      </div>
+      <span class="icon-size-label icon-size-label-dark">32px</span>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

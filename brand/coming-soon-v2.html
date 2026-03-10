@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mast — Your whole business, one platform.</title>
+<meta name="description" content="Mast is the all-in-one platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place. Coming soon.">
+
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://runmast.com">
+<meta property="og:title" content="Mast — Your whole business, one platform.">
+<meta property="og:description" content="One platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place.">
+<meta property="og:image" content="https://runmast.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mast — Your whole business, one platform.">
+<meta name="twitter:description" content="One platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place.">
+
+<!-- Favicon (inline SVG data URI — the Mast mark) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='13' y='2' width='4' height='28' rx='2' fill='%230e1c2e'/%3E%3Cpath d='M17 4 L28 10 L17 17Z' fill='%23e8a84c'/%3E%3Cpath d='M17 19 L25 23.5 L17 28Z' fill='%230e1c2e' opacity='0.2'/%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0e1c2e;
+    --cream:  #f0ebe0;
+    --amber:  #e8a84c;
+    --amber2: #b8742a;
+    --text:   #1a1a1a;
+    --muted:  #888;
+    --soft:   #555;
+    --border: #e4ddd4;
+    --bg:     #faf7f3;
+    --card:   #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 28px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-wordmark {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.025em;
+    color: var(--navy);
+  }
+
+  .nav-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber2);
+    background: #fdf3e3;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #f0d8a8;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 96px 52px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-left {}
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber2);
+    margin-bottom: 24px;
+  }
+
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.75); }
+  }
+
+  h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(44px, 5.5vw, 68px);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+
+  h1 .amber { color: var(--amber); }
+
+  .hero-body {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--soft);
+    margin-bottom: 40px;
+  }
+
+  .hero-body strong {
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  /* Email form */
+  .email-row {
+    display: flex;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color 0.2s;
+    max-width: 420px;
+  }
+  .email-row:focus-within { border-color: var(--amber); }
+  .email-row input {
+    flex: 1;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+  .email-row input::placeholder { color: #bbb; }
+  .email-row button {
+    padding: 12px 20px;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    margin: 3px;
+    border-radius: 7px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .email-row button:hover { background: #1a3050; }
+  .form-note {
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 10px;
+  }
+
+  /* Hero right — big logo mark */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0.08;
+  }
+
+  /* ── PAIN STRIP ── */
+  .pain-strip {
+    background: var(--navy);
+    padding: 56px 52px;
+  }
+
+  .pain-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+  }
+
+  .pain-item {}
+
+  .pain-icon {
+    font-size: 26px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .pain-item h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .pain-item p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #7a9abb;
+  }
+
+  /* ── MODULES ── */
+  .modules-section {
+    padding: 88px 52px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 52px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber2);
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 3.5vw, 40px);
+    letter-spacing: -0.025em;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+
+  .section-header p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--soft);
+    margin-top: 12px;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+
+  .module-card {
+    background: var(--card);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 0;
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .module-card:first-child { border-radius: 12px 0 0 0; }
+  .module-card:nth-child(4) { border-radius: 0 12px 0 0; }
+  .module-card:nth-child(5) { border-radius: 0 0 0 12px; }
+  .module-card:last-child { border-radius: 0 0 12px 0; }
+
+  .module-card:hover { background: #fdf8f3; }
+
+  .module-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .module-name {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+
+  .module-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ── END TO END ── */
+  .e2e-section {
+    background: #fff;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 88px 52px;
+  }
+
+  .e2e-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .e2e-left h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -0.025em;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .e2e-left p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--soft);
+  }
+
+  .e2e-left p + p {
+    margin-top: 16px;
+  }
+
+  .e2e-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .step {
+    background: var(--bg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border-radius: 0;
+  }
+
+  .step:first-child { border-radius: 10px 10px 0 0; }
+  .step:last-child  { border-radius: 0 0 10px 10px; }
+
+  .step-num {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    min-width: 24px;
+    padding-top: 2px;
+  }
+
+  .step-content {}
+
+  .step-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .step-detail {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .step-module {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber2);
+    background: #fdf3e3;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 36px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: #ccc;
+  }
+
+  .footer-right {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero { grid-template-columns: 1fr; padding: 56px 24px 48px; gap: 0; }
+    .hero-right { display: none; }
+    .email-row { max-width: 100%; }
+    .pain-strip { padding: 48px 24px; }
+    .pain-inner { grid-template-columns: 1fr; gap: 32px; }
+    .modules-section { padding: 56px 24px; }
+    .modules-grid { grid-template-columns: 1fr 1fr; }
+    .module-card:first-child { border-radius: 12px 0 0 0; }
+    .module-card:nth-child(4) { border-radius: 0; }
+    .module-card:nth-child(2) { border-radius: 0 12px 0 0; }
+    .module-card:nth-child(7) { border-radius: 0 0 0 12px; }
+    .module-card:last-child { border-radius: 0 0 12px 0; }
+    .tested-section { padding: 48px 24px !important; }
+    .tested-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .e2e-section { padding: 56px 24px; }
+    .e2e-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo-lockup" href="#">
+    <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
+      <rect x="8.5" y="0" width="3" height="38" rx="1.5" fill="#0e1c2e"/>
+      <path d="M11.5 1.5 L20 6.5 L11.5 13 Z" fill="#e8a84c"/>
+      <path d="M11.5 15.5 L18 19.5 L11.5 24 Z" fill="#0e1c2e" opacity="0.18"/>
+    </svg>
+    <span class="logo-wordmark">Mast</span>
+  </a>
+  <span class="nav-badge">Coming Soon</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="eyebrow"><span class="pulse"></span>Built for the small business</div>
+    <h1>You built it.<br>We help you<br><span class="amber">run it.</span></h1>
+    <p class="hero-body">
+      Are we spending more time running our businesses than building our products? 
+      Waking up every day managing a stack of freemium tools that keep 
+      <strong>shrinking what's free and charging more for the rest</strong> — 
+      none of them connected, all of them costing more than they should?
+      <br><br>
+      Mast was built for us. One platform. Everything your small business needs, finally in one place.
+    </p>
+    <form id="notify-form" class="email-row" action="https://formspree.io/f/xpwzgvkb" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required/>
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="form-note" id="form-note">Be first to know when we launch. No spam, ever.</p>
+  </div>
+
+  <div class="hero-right">
+    <!-- Large background mark -->
+    <svg width="240" height="400" viewBox="0 0 240 400" fill="none" opacity="0.07">
+      <rect x="112" y="0" width="16" height="400" rx="8" fill="#0e1c2e"/>
+      <path d="M128 8 L220 52 L128 96 Z" fill="#e8a84c"/>
+      <path d="M128 108 L196 140 L128 172 Z" fill="#0e1c2e"/>
+    </svg>
+  </div>
+</div>
+
+<!-- PAIN STRIP -->
+<div class="pain-strip">
+  <div class="pain-inner">
+    <div class="pain-item">
+      <span class="pain-icon">⏰</span>
+      <h3>More admin, less making</h3>
+      <p>We started our businesses because we love what we do. Now half the day is spent on things that have nothing to do with it.</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-icon">🧩</span>
+      <h3>A different tool for everything</h3>
+      <p>Payments here, inventory there, social media somewhere else. Six tools, six logins, six monthly bills — none of them talking to each other.</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-icon">📉</span>
+      <h3>Free keeps shrinking</h3>
+      <p>The platforms we rely on keep moving the goalposts. What was free last year costs money today. And it keeps getting worse.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="modules-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Everything in one place</div>
+    <h2>Your whole business,<br>one platform.</h2>
+    <p>Mast is built around the way small businesses actually work — from making to selling, shipping to marketing, and everything in between.</p>
+    <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
+        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Built for the small business</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
+        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Tested with a small business</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
+        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Ready soon to help you</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modules-grid">
+    <div class="module-card">
+      <span class="module-icon">📊</span>
+      <div class="module-name">Dashboard</div>
+      <div class="module-desc">Your business at a glance. Today's numbers, what needs attention, quick actions — all without digging.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">🔨</span>
+      <div class="module-name">Make</div>
+      <div class="module-desc">Production tracking, inventory intake, and job management built for makers who create physical products.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">📣</span>
+      <div class="module-name">Market</div>
+      <div class="module-desc">Social media planning, content scheduling, newsletters, and customer outreach — without leaving the platform.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">💳</span>
+      <div class="module-name">Sell</div>
+      <div class="module-desc">Point of sale, order management, customer records, and payment processing built for how you actually sell.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">📦</span>
+      <div class="module-name">Ship</div>
+      <div class="module-desc">Fulfillment tracking, label generation, and delivery management — from the moment an order is placed.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">🎪</span>
+      <div class="module-name">Events</div>
+      <div class="module-desc">Manage markets, fairs, and pop-ups from setup to close. Inventory, sales, and logistics all in one place.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">🏃</span>
+      <div class="module-name">Run</div>
+      <div class="module-desc">Mileage tracking, expense management, and business reports — the operational layer that keeps things moving.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">⚙️</span>
+      <div class="module-name">Manage</div>
+      <div class="module-desc">Team access, permissions, audit trails, and settings — the controls you need as your business grows.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTED WITH -->
+<div class="tested-section" style="background:#fdf8f2;border-top:1px solid #e4ddd4;border-bottom:1px solid #e4ddd4;padding:56px 52px;">
+  <div class="tested-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+    <div>
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#b8742a;margin-bottom:14px;">Tested with a real small business</div>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3vw,34px);letter-spacing:-0.025em;color:#0e1c2e;line-height:1.15;margin-bottom:16px;">Shir Glassworks</h2>
+      <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;margin-bottom:16px;">
+        Mast didn't start in a lab — it was built alongside a working glass art studio. 
+        Every feature was designed around a real problem that real small business owners face every day.
+      </p>
+      <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;">
+        Shir Glassworks has been our first partner from day one — helping us build something that actually works in the real world, not just in theory.
+        Their website is coming soon.
+      </p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:#fff;border-radius:12px;padding:24px 28px;border:1px solid #e4ddd4;">
+        <div style="font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#b8742a;margin-bottom:8px;">What they told us</div>
+        <p style="font-size:15px;font-weight:300;line-height:1.7;color:#444;font-style:italic;">"We were spending more time managing spreadsheets, receipts, and five different apps than we were actually making glass. That's not why we started this."</p>
+        <p style="font-size:12px;font-weight:500;color:#0e1c2e;margin-top:12px;">— Ori &amp; Madeline, Shir Glassworks</p>
+      </div>
+      <div style="background:#0e1c2e;border-radius:12px;padding:20px 28px;display:flex;align-items:center;gap:16px;">
+        <svg width="20" height="34" viewBox="0 0 20 34" fill="none" style="flex-shrink:0;">
+          <rect x="8.5" y="0" width="3" height="34" rx="1.5" fill="#f0ebe0"/>
+          <path d="M11.5 1.5 L20 6 L11.5 11.5 Z" fill="#e8a84c"/>
+          <path d="M11.5 14 L17.5 17.5 L11.5 21 Z" fill="#f0ebe0" opacity="0.3"/>
+        </svg>
+        <div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#6a8aaa;margin-bottom:4px;">Powered by Mast</div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;color:#f0ebe0;letter-spacing:-0.01em;">shirglassworks.com — coming soon</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- END TO END -->
+<div class="e2e-section">
+  <div class="e2e-inner">
+
+    <div class="e2e-left">
+      <div class="section-eyebrow" style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber2);margin-bottom:12px;">End to end</div>
+      <h2>From idea to customer, without switching tabs.</h2>
+      <p>Here's what a single sale at a craft fair looks like when the whole business runs on Mast. Every step connected, every detail captured.</p>
+      <p>No copy-pasting between apps. No reconciling numbers at the end of the day. No wondering where that customer's details went.</p>
+    </div>
+
+    <div class="e2e-right">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <div class="step-module">Make</div>
+          <div class="step-title">Product is created and logged</div>
+          <div class="step-detail">New inventory item added with photos, materials, and cost — ready to sell before the fair.</div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <div class="step-module">Events</div>
+          <div class="step-title">Fair setup takes minutes</div>
+          <div class="step-detail">Load your inventory, set your booth, and you're ready to take sales — all from your phone.</div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <div class="step-module">Sell</div>
+          <div class="step-title">Customer pays at the booth</div>
+          <div class="step-detail">Card tap, receipt sent, inventory updated. The sale is captured and the customer record is created.</div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <div class="step-module">Market</div>
+          <div class="step-title">Post about it while it's fresh</div>
+          <div class="step-detail">Turn the sale into a social post from the same screen — photos, caption, and platform all in one tap.</div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <div class="step-content">
+          <div class="step-module">Run</div>
+          <div class="step-title">Drive home, log your miles</div>
+          <div class="step-detail">End the trip, confirm the distance, and your mileage deduction is recorded for tax season automatically.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
+      <rect x="6.5" y="0" width="2.5" height="28" rx="1.25" fill="#ccc"/>
+      <path d="M9 1 L16 5 L9 9.5 Z" fill="#e8a84c" opacity="0.6"/>
+      <path d="M9 11 L14.5 14.5 L9 18 Z" fill="#ccc" opacity="0.3"/>
+    </svg>
+    <span class="footer-tagline">You built it, we help you run it.</span>
+  </div>
+  <span class="footer-right">runmast.com</span>
+</footer>
+
+<script>
+// Email capture form — submits to Formspree
+// TODO: Replace the Formspree form ID in the <form> action attribute
+//       1. Go to https://formspree.io → Create free account
+//       2. Create a new form → copy the form ID (e.g., "xpwzgvkb")
+//       3. Update the action URL: https://formspree.io/f/{YOUR_FORM_ID}
+//       Submissions will appear in Formspree dashboard + email notifications
+
+(function() {
+  var form = document.getElementById('notify-form');
+  var note = document.getElementById('form-note');
+  var btn = form.querySelector('button');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var email = form.querySelector('input[name="email"]').value;
+    if (!email) return;
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(function(r) {
+      if (r.ok) {
+        form.querySelector('input').value = '';
+        form.querySelector('input').style.display = 'none';
+        btn.textContent = 'You\'re in!';
+        btn.style.background = '#2d6a4f';
+        note.textContent = 'We\'ll let you know when Mast is ready.';
+        note.style.color = '#2d6a4f';
+      } else {
+        throw new Error('Form submission failed');
+      }
+    })
+    .catch(function() {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+      note.textContent = 'Something went wrong — please try again.';
+      note.style.color = '#c0392b';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
