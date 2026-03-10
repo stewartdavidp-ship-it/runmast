@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mast — Your whole business, one platform.</title>
+<title>Mast — Coming Soon</title>
 <meta name="description" content="Mast is the all-in-one platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place. Coming soon.">
 
 <!-- Open Graph / Social Sharing -->
@@ -43,7 +43,6 @@
     color: var(--text);
   }
 
-  /* ── NAV ── */
   nav {
     padding: 28px 52px;
     display: flex;
@@ -83,7 +82,6 @@
     border: 1px solid #f0d8a8;
   }
 
-  /* ── HERO ── */
   .hero {
     padding: 96px 52px 80px;
     max-width: 1100px;
@@ -93,8 +91,6 @@
     gap: 80px;
     align-items: center;
   }
-
-  .hero-left {}
 
   .eyebrow {
     display: inline-flex;
@@ -146,7 +142,6 @@
     color: var(--navy);
   }
 
-  /* Email form */
   .email-row {
     display: flex;
     gap: 0;
@@ -190,22 +185,12 @@
     margin-top: 10px;
   }
 
-  /* Hero right — big logo mark */
   .hero-right {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .hero-mark {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    opacity: 0.08;
-  }
-
-  /* ── PAIN STRIP ── */
   .pain-strip {
     background: var(--navy);
     padding: 56px 52px;
@@ -218,8 +203,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 48px;
   }
-
-  .pain-item {}
 
   .pain-icon {
     font-size: 26px;
@@ -244,16 +227,13 @@
     color: #7a9abb;
   }
 
-  /* ── MODULES ── */
   .modules-section {
     padding: 88px 52px;
     max-width: 1100px;
     margin: 0 auto;
   }
 
-  .section-header {
-    margin-bottom: 52px;
-  }
+  .section-header { margin-bottom: 52px; }
 
   .section-eyebrow {
     font-size: 11px;
@@ -295,22 +275,16 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 0;
     transition: background 0.15s;
-    cursor: default;
   }
 
   .module-card:first-child { border-radius: 12px 0 0 0; }
   .module-card:nth-child(4) { border-radius: 0 12px 0 0; }
   .module-card:nth-child(5) { border-radius: 0 0 0 12px; }
   .module-card:last-child { border-radius: 0 0 12px 0; }
-
   .module-card:hover { background: #fdf8f3; }
 
-  .module-icon {
-    font-size: 22px;
-    line-height: 1;
-  }
+  .module-icon { font-size: 22px; line-height: 1; }
 
   .module-name {
     font-family: 'Archivo', sans-serif;
@@ -327,7 +301,6 @@
     color: var(--muted);
   }
 
-  /* ── END TO END ── */
   .e2e-section {
     background: #fff;
     border-top: 1px solid var(--border);
@@ -361,9 +334,7 @@
     color: var(--soft);
   }
 
-  .e2e-left p + p {
-    margin-top: 16px;
-  }
+  .e2e-left p + p { margin-top: 16px; }
 
   .e2e-right {
     display: flex;
@@ -377,7 +348,6 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    border-radius: 0;
   }
 
   .step:first-child { border-radius: 10px 10px 0 0; }
@@ -392,8 +362,6 @@
     min-width: 24px;
     padding-top: 2px;
   }
-
-  .step-content {}
 
   .step-title {
     font-family: 'Archivo', sans-serif;
@@ -423,7 +391,6 @@
     margin-bottom: 6px;
   }
 
-  /* ── FOOTER ── */
   footer {
     padding: 36px 52px;
     display: flex;
@@ -451,7 +418,6 @@
     color: #ccc;
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
     .hero { grid-template-columns: 1fr; padding: 56px 24px 48px; gap: 0; }
@@ -461,11 +427,6 @@
     .pain-inner { grid-template-columns: 1fr; gap: 32px; }
     .modules-section { padding: 56px 24px; }
     .modules-grid { grid-template-columns: 1fr 1fr; }
-    .module-card:first-child { border-radius: 12px 0 0 0; }
-    .module-card:nth-child(4) { border-radius: 0; }
-    .module-card:nth-child(2) { border-radius: 0 12px 0 0; }
-    .module-card:nth-child(7) { border-radius: 0 0 0 12px; }
-    .module-card:last-child { border-radius: 0 0 12px 0; }
     .tested-section { padding: 48px 24px !important; }
     .tested-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
     .e2e-section { padding: 56px 24px; }
@@ -476,7 +437,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="logo-lockup" href="#">
     <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
@@ -489,15 +449,14 @@
   <span class="nav-badge">Coming Soon</span>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-left">
     <div class="eyebrow"><span class="pulse"></span>Built for the small business</div>
     <h1>You built it.<br>We help you<br><span class="amber">run it.</span></h1>
     <p class="hero-body">
-      Are we spending more time running our businesses than building our products? 
-      Waking up every day managing a stack of freemium tools that keep 
-      <strong>shrinking what's free and charging more for the rest</strong> — 
+      Are we spending more time running our businesses than building our products?
+      Waking up every day managing a stack of freemium tools that keep
+      <strong>shrinking what's free and charging more for the rest</strong> —
       none of them connected, all of them costing more than they should?
       <br><br>
       Mast was built for us. One platform. Everything your small business needs, finally in one place.
@@ -510,7 +469,6 @@
   </div>
 
   <div class="hero-right">
-    <!-- Large background mark -->
     <svg width="240" height="400" viewBox="0 0 240 400" fill="none" opacity="0.07">
       <rect x="112" y="0" width="16" height="400" rx="8" fill="#0e1c2e"/>
       <path d="M128 8 L220 52 L128 96 Z" fill="#e8a84c"/>
@@ -519,7 +477,6 @@
   </div>
 </div>
 
-<!-- PAIN STRIP -->
 <div class="pain-strip">
   <div class="pain-inner">
     <div class="pain-item">
@@ -540,7 +497,6 @@
   </div>
 </div>
 
-<!-- MODULES -->
 <div class="modules-section">
   <div class="section-header">
     <div class="section-eyebrow">Everything in one place</div>
@@ -609,12 +565,11 @@
 <!-- TESTED WITH -->
 <div class="tested-section" style="background:#fdf8f2;border-top:1px solid #e4ddd4;border-bottom:1px solid #e4ddd4;padding:56px 52px;">
   <div class="tested-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
-
     <div>
       <div style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#b8742a;margin-bottom:14px;">Tested with a real small business</div>
       <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3vw,34px);letter-spacing:-0.025em;color:#0e1c2e;line-height:1.15;margin-bottom:16px;">Shir Glassworks</h2>
       <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;margin-bottom:16px;">
-        Mast didn't start in a lab — it was built alongside a working glass art studio. 
+        Mast didn't start in a lab — it was built alongside a working glass art studio.
         Every feature was designed around a real problem that real small business owners face every day.
       </p>
       <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;">
@@ -622,7 +577,6 @@
         Their website is coming soon.
       </p>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:16px;">
       <div style="background:#fff;border-radius:12px;padding:24px 28px;border:1px solid #e4ddd4;">
         <div style="font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#b8742a;margin-bottom:8px;">What they told us</div>
@@ -641,21 +595,17 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- END TO END -->
 <div class="e2e-section">
   <div class="e2e-inner">
-
     <div class="e2e-left">
       <div class="section-eyebrow" style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber2);margin-bottom:12px;">End to end</div>
       <h2>From idea to customer, without switching tabs.</h2>
       <p>Here's what a single sale at a craft fair looks like when the whole business runs on Mast. Every step connected, every detail captured.</p>
       <p>No copy-pasting between apps. No reconciling numbers at the end of the day. No wondering where that customer's details went.</p>
     </div>
-
     <div class="e2e-right">
       <div class="step">
         <span class="step-num">01</span>
@@ -698,11 +648,9 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-left">
     <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
