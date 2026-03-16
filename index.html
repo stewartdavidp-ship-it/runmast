@@ -782,6 +782,10 @@
   <a href="#pricing" style="color:var(--navy);font-weight:500;margin-left:8px;">See plans</a>
 </div>
 
+<div class="cancel-banner" id="success-banner" style="background:#e6f4ea;border-color:#34a853;color:#1e4620;">
+  You're in! Your account is being set up — we'll email you when it's ready.
+</div>
+
 <nav>
   <a class="logo-lockup" href="#">
     <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
@@ -1144,7 +1148,12 @@
   // Show cancel banner if redirected from Stripe cancel
   if (window.location.search.indexOf('canceled=true') !== -1) {
     document.getElementById('cancel-banner').classList.add('active');
-    // Clean URL
+    history.replaceState({}, '', window.location.pathname);
+  }
+
+  // Show success banner if redirected from Stripe success
+  if (window.location.search.indexOf('success=true') !== -1) {
+    document.getElementById('success-banner').classList.add('active');
     history.replaceState({}, '', window.location.pathname);
   }
 
