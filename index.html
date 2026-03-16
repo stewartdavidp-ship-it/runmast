@@ -1053,7 +1053,7 @@
       <div class="step">
         <span class="step-num">02</span>
         <div class="step-content">
-          <div class="step-module">Events</div>
+          <div class="step-module">Show</div>
           <div class="step-title">Fair setup takes minutes</div>
           <div class="step-detail">Load your inventory, set your booth, and you're ready to take sales — all from your phone.</div>
         </div>
@@ -1137,7 +1137,7 @@
 <script>
 (function() {
   var API_BASE = 'https://us-central1-mast-platform-prod.cloudfunctions.net';
-  var selectedPlan = 'growth';
+  var selectedPlan = 'operate';
   var subdomainAvailable = false;
   var checkTimeout = null;
 
@@ -1289,35 +1289,70 @@
 
     errorEl.style.display = 'none';
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Creating checkout...';
 
-    fetch(API_BASE + '/createCheckoutSession', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        plan: selectedPlan,
-        email: email,
-        subdomain: subdomain,
-        businessName: businessName,
-      }),
-    })
-    .then(function(res) {
-      if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
-      return res.json();
-    })
-    .then(function(data) {
-      if (data.sessionUrl) {
-        window.location.href = data.sessionUrl;
-      } else {
-        throw new Error('No checkout URL returned');
-      }
-    })
-    .catch(function(err) {
-      errorEl.textContent = err.message || 'Something went wrong. Please try again.';
-      errorEl.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Continue to Payment';
-    });
+    if (selectedPlan === 'publish') {
+      // Free tier — provision directly, no Stripe checkout
+      submitBtn.textContent = 'Creating your account...';
+
+      fetch(API_BASE + '/createCheckoutSession', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: 'publish',
+          email: email,
+          subdomain: subdomain,
+          businessName: businessName,
+        }),
+      })
+      .then(function(res) {
+        if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
+        return res.json();
+      })
+      .then(function(data) {
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          throw new Error('Account creation failed');
+        }
+      })
+      .catch(function(err) {
+        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+        errorEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Get Started Free';
+      });
+    } else {
+      // Paid tiers — Stripe checkout
+      submitBtn.textContent = 'Creating checkout...';
+
+      fetch(API_BASE + '/createCheckoutSession', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: selectedPlan,
+          email: email,
+          subdomain: subdomain,
+          businessName: businessName,
+        }),
+      })
+      .then(function(res) {
+        if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
+        return res.json();
+      })
+      .then(function(data) {
+        if (data.sessionUrl) {
+          window.location.href = data.sessionUrl;
+        } else {
+          throw new Error('No checkout URL returned');
+        }
+      })
+      .catch(function(err) {
+        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+        errorEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue to Payment';
+      });
+    }
   };
 
 })();
