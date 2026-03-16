@@ -276,7 +276,7 @@
 
   .modules-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 3px;
     margin-bottom: 3px;
   }
@@ -291,8 +291,8 @@
   }
 
   .module-card:first-child { border-radius: 12px 0 0 0; }
-  .module-card:nth-child(4) { border-radius: 0 12px 0 0; }
-  .module-card:nth-child(5) { border-radius: 0 0 0 12px; }
+  .module-card:nth-child(3) { border-radius: 0 12px 0 0; }
+  .module-card:nth-child(7) { border-radius: 0 0 0 12px; }
   .module-card:last-child { border-radius: 0 0 12px 0; }
   .module-card:hover { background: #fdf8f3; }
 
@@ -867,24 +867,14 @@
 
   <div class="modules-grid">
     <div class="module-card">
-      <span class="module-icon">&#128202;</span>
-      <div class="module-name">Dashboard</div>
-      <div class="module-desc">Your business at a glance. Today's numbers, what needs attention, quick actions — all without digging.</div>
+      <span class="module-icon">&#128179;</span>
+      <div class="module-name">Sell</div>
+      <div class="module-desc">Point of sale, order management, inventory, coupons, and payment processing — built for how you actually sell.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#128296;</span>
       <div class="module-name">Make</div>
-      <div class="module-desc">Production tracking, inventory intake, and job management built for makers who create physical products.</div>
-    </div>
-    <div class="module-card">
-      <span class="module-icon">&#128227;</span>
-      <div class="module-name">Market</div>
-      <div class="module-desc">Social media planning, content scheduling, newsletters, and customer outreach — without leaving the platform.</div>
-    </div>
-    <div class="module-card">
-      <span class="module-icon">&#128179;</span>
-      <div class="module-name">Sell</div>
-      <div class="module-desc">Point of sale, order management, customer records, and payment processing built for how you actually sell.</div>
+      <div class="module-desc">Production tracking, inventory, and job management built for makers who create physical products.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#128230;</span>
@@ -892,18 +882,33 @@
       <div class="module-desc">Fulfillment tracking, label generation, and delivery management — from the moment an order is placed.</div>
     </div>
     <div class="module-card">
+      <span class="module-icon">&#128227;</span>
+      <div class="module-name">Market</div>
+      <div class="module-desc">Newsletter, content scheduling, and customer outreach — without leaving the platform.</div>
+    </div>
+    <div class="module-card">
       <span class="module-icon">&#127914;</span>
-      <div class="module-name">Events</div>
-      <div class="module-desc">Manage markets, fairs, and pop-ups from setup to close. Inventory, sales, and logistics all in one place.</div>
+      <div class="module-name">Show</div>
+      <div class="module-desc">Manage markets, fairs, pop-ups, and events from application to close. Staffing, prep, and logistics all in one place.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#127939;</span>
       <div class="module-name">Run</div>
-      <div class="module-desc">Mileage tracking, expense management, and business reports — the operational layer that keeps things moving.</div>
+      <div class="module-desc">Mileage tracking, expense logging, customer records, and business reports — the operational layer that keeps things moving.</div>
     </div>
     <div class="module-card">
+      <span class="module-icon">&#127760;</span>
+      <div class="module-name">Web</div>
+      <div class="module-desc">Pages, blog, and site content management. Your public story, built and updated from inside the platform.</div>
+    </div>
+    <div class="module-card" style="position:relative;">
+      <span class="module-icon">&#128197;</span>
+      <div class="module-name">Book <span style="font-size:10px;font-weight:500;background:var(--amber);color:var(--navy);padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">Coming Soon</span></div>
+      <div class="module-desc">Appointments, reservations, and class bookings — for businesses that run on a schedule.</div>
+    </div>
+    <div class="module-card" style="background:rgba(14,28,46,0.03);">
       <span class="module-icon">&#9881;&#65039;</span>
-      <div class="module-name">Manage</div>
+      <div class="module-name">Manage <span style="font-size:10px;font-weight:500;color:var(--amber2);margin-left:6px;">Always included</span></div>
       <div class="module-desc">Team access, permissions, audit trails, and settings — the controls you need as your business grows.</div>
     </div>
   </div>
@@ -914,8 +919,8 @@
   <div class="pricing-inner">
     <div class="section-header">
       <div class="section-eyebrow">Simple pricing</div>
-      <h2>Start free. Grow at your pace.</h2>
-      <p>Begin with your website, then add modules as your business grows. Every plan includes your own .runmast.com site.</p>
+      <h2>One platform. Every stage of your business.</h2>
+      <p>Start free with your website, then add modules as your business grows. One monthly number — no surprises.</p>
     </div>
 
     <div class="pricing-grid">
@@ -923,25 +928,23 @@
       <!-- PUBLISH (Free) -->
       <div class="price-card" data-plan="publish">
         <div class="price-tier">Publish</div>
-        <div class="price-tagline">Your digital presence.</div>
+        <div class="price-tagline">Your business online, no cost.</div>
         <div class="price-amount">
           <span class="price-dollar">Free</span>
         </div>
         <div class="price-note">No credit card required.</div>
         <ul class="price-features">
-          <li>Public website</li>
-          <li>Product catalog</li>
-          <li>Your own .runmast.com URL</li>
-          <li>1 team member</li>
-          <li>Email support</li>
+          <li>Public website + product catalog</li>
+          <li>No storefront or purchasing</li>
+          <li>Manage your account</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('publish', 'Free')">Get Started</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('publish', 'Free')">Get Started Free</button>
       </div>
 
       <!-- LAUNCH -->
       <div class="price-card" data-plan="launch">
         <div class="price-tier">Launch</div>
-        <div class="price-tagline">Start running your business.</div>
+        <div class="price-tagline">Open for business.</div>
         <div class="price-amount">
           <span class="price-dollar">$49</span>
           <span class="price-period">/month</span>
@@ -949,11 +952,8 @@
         <div class="price-note">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
           <li>Choose 1 module</li>
-          <li>Up to 100 products</li>
-          <li>Square payment integration</li>
-          <li>AI-powered Studio Assistant</li>
-          <li>1 team member</li>
-          <li>Email support</li>
+          <li>All Manage capabilities</li>
+          <li>Studio Assistant included</li>
         </ul>
         <button class="price-cta price-cta-secondary" onclick="openSignup('launch', '$49/mo')">Get Started</button>
       </div>
@@ -962,20 +962,17 @@
       <div class="price-card featured" data-plan="operate">
         <div class="price-badge">Most Popular</div>
         <div class="price-tier">Operate</div>
-        <div class="price-tagline">Your operations, connected.</div>
+        <div class="price-tagline">Running a real operation.</div>
         <div class="price-amount">
           <span class="price-dollar">$99</span>
           <span class="price-period">/month</span>
         </div>
         <div class="price-note">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>Up to 3 modules</li>
-          <li>Unlimited products</li>
-          <li>Etsy + Square integrations</li>
-          <li>AI-powered Studio Assistant</li>
-          <li>Custom domain support</li>
-          <li>Up to 5 team members</li>
-          <li>Priority support</li>
+          <li>Choose up to 3 modules</li>
+          <li>All Manage capabilities</li>
+          <li>Studio Assistant included</li>
+          <li style="font-size:0.82em;color:#8a7e6d;font-style:italic;">Most businesses start with Sell + Ship + Make</li>
         </ul>
         <button class="price-cta price-cta-primary" onclick="openSignup('operate', '$99/mo')">Get Started</button>
       </div>
@@ -983,20 +980,16 @@
       <!-- COMMAND -->
       <div class="price-card" data-plan="command">
         <div class="price-tier">Command</div>
-        <div class="price-tagline">Full command of your business.</div>
+        <div class="price-tagline">Everything connected.</div>
         <div class="price-amount">
           <span class="price-dollar">$149</span>
           <span class="price-period">/month</span>
         </div>
         <div class="price-note">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>All modules included</li>
-          <li>Unlimited products</li>
-          <li>All integrations</li>
-          <li>AI-powered Studio Assistant</li>
-          <li>Custom domain support</li>
-          <li>Unlimited team members</li>
-          <li>Dedicated support</li>
+          <li>All 8 modules included</li>
+          <li>All Manage capabilities</li>
+          <li>Studio Assistant included</li>
         </ul>
         <button class="price-cta price-cta-secondary" onclick="openSignup('command', '$149/mo')">Get Started</button>
       </div>
