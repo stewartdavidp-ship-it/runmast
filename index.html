@@ -1102,6 +1102,17 @@
   <span class="footer-right">runmast.com</span>
 </footer>
 
+<!-- Firebase Auth SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyDBYJruwKadbj9UU4AUK0flcq3b0StkY1w",
+    authDomain: "mast-platform-prod.firebaseapp.com",
+    projectId: "mast-platform-prod"
+  });
+</script>
+
 <!-- SIGNUP MODAL -->
 <div class="modal-overlay" id="signup-modal">
   <div class="modal">
@@ -1110,30 +1121,40 @@
     <div class="modal-plan-name" id="modal-plan-label">Operate plan — $99/mo</div>
 
     <form id="signup-form" onsubmit="handleSignup(event)">
-      <div class="form-group">
-        <label for="signup-name">Business name</label>
-        <input type="text" id="signup-name" placeholder="e.g. Meadow Pottery" required autocomplete="organization">
-      </div>
-
-      <div class="form-group">
-        <label for="signup-subdomain">Choose your URL</label>
-        <div class="subdomain-row" id="subdomain-row">
-          <input type="text" id="signup-subdomain" placeholder="meadowpottery" required autocomplete="off"
-                 pattern="[a-z0-9][a-z0-9-]{1,28}[a-z0-9]"
-                 title="3-30 lowercase letters, numbers, and hyphens">
-          <span class="subdomain-suffix">.runmast.com</span>
+      <div id="signup-fields">
+        <div class="form-group">
+          <label for="signup-name">Business name</label>
+          <input type="text" id="signup-name" placeholder="e.g. Meadow Pottery" required autocomplete="organization">
         </div>
-        <div class="subdomain-status" id="subdomain-status"></div>
+
+        <div class="form-group">
+          <label for="signup-subdomain">Choose your URL</label>
+          <div class="subdomain-row" id="subdomain-row">
+            <input type="text" id="signup-subdomain" placeholder="meadowpottery" required autocomplete="off"
+                   pattern="[a-z0-9][a-z0-9-]{1,28}[a-z0-9]"
+                   title="3-30 lowercase letters, numbers, and hyphens">
+            <span class="subdomain-suffix">.runmast.com</span>
+          </div>
+          <div class="subdomain-status" id="subdomain-status"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email">Your email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <button type="submit" class="modal-submit" id="signup-submit">Continue to Payment</button>
+        <div class="modal-error" id="signup-error"></div>
+        <div class="modal-note" id="signup-note">You'll be redirected to Stripe for secure payment.<br>Cancel anytime from your dashboard.</div>
       </div>
 
-      <div class="form-group">
-        <label for="signup-email">Your email</label>
-        <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
+      <div id="signup-verify" style="display:none;text-align:center;padding:24px 0;">
+        <div style="font-size:48px;margin-bottom:16px;">📧</div>
+        <h4 style="font-family:'Archivo',sans-serif;font-size:20px;color:var(--navy);margin-bottom:12px;">Check your email</h4>
+        <p style="color:#555;line-height:1.6;margin-bottom:8px;">We sent a verification link to<br><strong id="verify-email-display"></strong></p>
+        <p style="color:#888;font-size:13px;">Click the link to verify your email and continue signup.<br>The link expires in 1 hour.</p>
+        <button type="button" class="modal-submit" style="margin-top:16px;background:#e4ddd4;color:var(--navy);" onclick="closeSignup()">Close</button>
       </div>
-
-      <button type="submit" class="modal-submit" id="signup-submit">Continue to Payment</button>
-      <div class="modal-error" id="signup-error"></div>
-      <div class="modal-note">You'll be redirected to Stripe for secure payment.<br>Cancel anytime from your dashboard.</div>
     </form>
   </div>
 </div>
@@ -1144,6 +1165,77 @@
   var selectedPlan = 'operate';
   var subdomainAvailable = false;
   var checkTimeout = null;
+  var auth = firebase.auth();
+
+  // --- Email Link Sign-In Handler ---
+  // Detect if user arrived via email verification link
+  if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    var pendingSignup = JSON.parse(localStorage.getItem('mast_pending_signup') || 'null');
+    var emailForSignIn = pendingSignup ? pendingSignup.email : null;
+
+    if (!emailForSignIn) {
+      // Edge case: different device/browser — ask for email
+      emailForSignIn = window.prompt('Please enter your email to confirm:');
+    }
+
+    if (emailForSignIn) {
+      document.getElementById('success-banner').textContent = 'Verifying your email...';
+      document.getElementById('success-banner').classList.add('active');
+
+      auth.signInWithEmailLink(emailForSignIn, window.location.href)
+        .then(function(result) {
+          // Email verified, Firebase Auth account created
+          return result.user.getIdToken();
+        })
+        .then(function(idToken) {
+          if (!pendingSignup) {
+            document.getElementById('success-banner').textContent = 'Email verified! But we lost your signup details. Please try again.';
+            return;
+          }
+
+          // Proceed to Stripe checkout or free provisioning
+          if (pendingSignup.plan === 'publish') {
+            document.getElementById('success-banner').textContent = 'Email verified! Creating your account...';
+          } else {
+            document.getElementById('success-banner').textContent = 'Email verified! Redirecting to payment...';
+          }
+
+          return fetch(API_BASE + '/createCheckoutSession', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + idToken,
+            },
+            body: JSON.stringify({
+              plan: pendingSignup.plan,
+              email: pendingSignup.email,
+              subdomain: pendingSignup.subdomain,
+              businessName: pendingSignup.businessName,
+            }),
+          })
+          .then(function(res) {
+            if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
+            return res.json();
+          })
+          .then(function(data) {
+            localStorage.removeItem('mast_pending_signup');
+            if (data.sessionUrl) {
+              window.location.href = data.sessionUrl;
+            } else if (data.redirectUrl) {
+              window.location.href = data.redirectUrl;
+            }
+          });
+        })
+        .catch(function(err) {
+          console.error('Email link sign-in failed:', err);
+          document.getElementById('success-banner').style.background = '#fce8e6';
+          document.getElementById('success-banner').style.color = '#c5221f';
+          document.getElementById('success-banner').textContent = 'Verification failed: ' + (err.message || 'Please try again.');
+        });
+    }
+
+    history.replaceState({}, '', window.location.pathname);
+  }
 
   // Show cancel banner if redirected from Stripe cancel
   if (window.location.search.indexOf('canceled=true') !== -1) {
@@ -1165,6 +1257,19 @@
       plan.charAt(0).toUpperCase() + plan.slice(1) + ' plan \u2014 ' + priceLabel;
     document.getElementById('signup-modal').classList.add('active');
     document.getElementById('signup-error').style.display = 'none';
+    // Reset modal to form state
+    document.getElementById('signup-fields').style.display = '';
+    document.getElementById('signup-verify').style.display = 'none';
+    // Update note and button text based on plan
+    var noteEl = document.getElementById('signup-note');
+    var submitBtn = document.getElementById('signup-submit');
+    if (plan === 'publish') {
+      noteEl.innerHTML = 'We\'ll send a verification email to confirm your account.';
+      submitBtn.textContent = 'Verify & Get Started';
+    } else {
+      noteEl.innerHTML = 'We\'ll verify your email, then redirect to Stripe for secure payment.<br>Cancel anytime from your dashboard.';
+      submitBtn.textContent = 'Verify & Continue';
+    }
     document.body.style.overflow = 'hidden';
     setTimeout(function() { document.getElementById('signup-name').focus(); }, 100);
   };
@@ -1298,70 +1403,36 @@
 
     errorEl.style.display = 'none';
     submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending verification email...';
 
-    if (selectedPlan === 'publish') {
-      // Free tier — provision directly, no Stripe checkout
-      submitBtn.textContent = 'Creating your account...';
+    // Store signup data in localStorage to survive the email redirect
+    localStorage.setItem('mast_pending_signup', JSON.stringify({
+      plan: selectedPlan,
+      email: email,
+      subdomain: subdomain,
+      businessName: businessName,
+    }));
 
-      fetch(API_BASE + '/createCheckoutSession', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: 'publish',
-          email: email,
-          subdomain: subdomain,
-          businessName: businessName,
-        }),
-      })
-      .then(function(res) {
-        if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
-        return res.json();
-      })
-      .then(function(data) {
-        if (data.redirectUrl) {
-          window.location.href = data.redirectUrl;
-        } else {
-          throw new Error('Account creation failed');
-        }
+    // Send Firebase email sign-in link
+    var actionCodeSettings = {
+      url: window.location.origin + '/',
+      handleCodeInApp: true,
+    };
+
+    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+      .then(function() {
+        // Show "check your email" state
+        document.getElementById('signup-fields').style.display = 'none';
+        document.getElementById('signup-verify').style.display = '';
+        document.getElementById('verify-email-display').textContent = email;
       })
       .catch(function(err) {
-        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+        console.error('Failed to send verification email:', err);
+        errorEl.textContent = err.message || 'Failed to send verification email. Please try again.';
         errorEl.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Get Started Free';
+        submitBtn.textContent = selectedPlan === 'publish' ? 'Verify & Get Started' : 'Verify & Continue';
       });
-    } else {
-      // Paid tiers — Stripe checkout
-      submitBtn.textContent = 'Creating checkout...';
-
-      fetch(API_BASE + '/createCheckoutSession', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: selectedPlan,
-          email: email,
-          subdomain: subdomain,
-          businessName: businessName,
-        }),
-      })
-      .then(function(res) {
-        if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
-        return res.json();
-      })
-      .then(function(data) {
-        if (data.sessionUrl) {
-          window.location.href = data.sessionUrl;
-        } else {
-          throw new Error('No checkout URL returned');
-        }
-      })
-      .catch(function(err) {
-        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
-        errorEl.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Continue to Payment';
-      });
-    }
   };
 
 })();
