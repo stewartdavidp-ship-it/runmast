@@ -765,6 +765,7 @@
     .modules-grid { grid-template-columns: 1fr 1fr; }
     .pricing-section { padding: 56px 24px; }
     .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+    .events-callout { grid-template-columns: 1fr !important; gap: 28px !important; padding: 32px 24px !important; }
     .tested-section { padding: 48px 24px !important; }
     .tested-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
     .e2e-section { padding: 56px 24px; }
@@ -999,6 +1000,34 @@
       </div>
 
     </div>
+
+    <!-- EVENTS TIER — separate callout -->
+    <div class="events-callout" style="margin-top:52px;background:linear-gradient(135deg,#0e1c2e 0%,#1a3050 100%);border-radius:20px;padding:48px 44px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;">For event organizers</div>
+        <h3 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,2.5vw,30px);color:#f0ebe0;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Run shows. Manage vendors. Delight attendees.</h3>
+        <p style="font-size:15px;font-weight:300;color:#9ab0c8;line-height:1.7;">Mast Events gives you everything to organize craft shows, markets, and fairs — booth management, vendor portals, floor plans, attendee pages, scavenger hunts, and more.</p>
+        <p style="font-size:13px;font-weight:400;color:#6a8aaa;margin-top:16px;">Stack with any vendor plan to sell products <em>and</em> organize shows.</p>
+      </div>
+      <div class="price-card" data-plan="events" style="margin:0;background:#fff;">
+        <div class="price-tier" style="color:var(--navy);">Events</div>
+        <div class="price-tagline" style="color:var(--muted);">Organize shows &amp; markets.</div>
+        <div class="price-amount">
+          <span class="price-dollar" style="color:var(--navy);">$99</span>
+          <span class="price-period">/month</span>
+        </div>
+        <div class="price-note">Billed monthly. Cancel anytime.</div>
+        <ul class="price-features">
+          <li>Show &amp; booth management</li>
+          <li>Vendor portals &amp; applications</li>
+          <li>Public show pages &amp; floor plans</li>
+          <li>Announcements &amp; scavenger hunts</li>
+          <li style="font-size:0.82em;color:#8a7e6d;font-style:italic;">Stackable — add a vendor plan to sell too</li>
+        </ul>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('events', '$99/mo')">Get Started</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
