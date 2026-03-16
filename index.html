@@ -1102,6 +1102,9 @@
   <span class="footer-right">runmast.com</span>
 </footer>
 
+<!-- hCaptcha -->
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
 <!-- Firebase Auth SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -1141,6 +1144,10 @@
         <div class="form-group">
           <label for="signup-email">Your email</label>
           <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group" style="display:flex;justify-content:center;">
+          <div class="h-captcha" data-sitekey="714cae3c-9194-478e-8cc4-f86c218815e6" id="hcaptcha-widget"></div>
         </div>
 
         <button type="submit" class="modal-submit" id="signup-submit">Continue to Payment</button>
@@ -1211,6 +1218,7 @@
               email: pendingSignup.email,
               subdomain: pendingSignup.subdomain,
               businessName: pendingSignup.businessName,
+              captchaToken: pendingSignup.captchaToken,
             }),
           })
           .then(function(res) {
@@ -1260,6 +1268,8 @@
     // Reset modal to form state
     document.getElementById('signup-fields').style.display = '';
     document.getElementById('signup-verify').style.display = 'none';
+    // Reset captcha
+    if (typeof hcaptcha !== 'undefined') try { hcaptcha.reset(); } catch(e) {}
     // Update note and button text based on plan
     var noteEl = document.getElementById('signup-note');
     var submitBtn = document.getElementById('signup-submit');
@@ -1401,6 +1411,14 @@
       return;
     }
 
+    // Verify hCaptcha
+    var captchaToken = typeof hcaptcha !== 'undefined' ? hcaptcha.getResponse() : '';
+    if (!captchaToken) {
+      errorEl.textContent = 'Please complete the captcha.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
     errorEl.style.display = 'none';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending verification email...';
@@ -1410,6 +1428,7 @@
       plan: selectedPlan,
       email: email,
       subdomain: subdomain,
+      captchaToken: captchaToken,
       businessName: businessName,
     }));
 
