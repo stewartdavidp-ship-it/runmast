@@ -784,8 +784,17 @@
 </div>
 
 <div class="cancel-banner" id="success-banner" style="background:#e6f4ea;border-color:#34a853;color:#1e4620;">
-  You're in! Your account is being set up — we'll email you when it's ready.
+  <div id="provision-status">
+    <span id="provision-spinner" style="display:inline-block;margin-right:8px;animation:spin 1s linear infinite;">⚙️</span>
+    <span id="provision-text">Setting up your account...</span>
+  </div>
+  <div id="provision-ready" style="display:none;text-align:center;">
+    <div style="font-size:24px;margin-bottom:8px;">🎉</div>
+    <strong>Your site is live!</strong><br>
+    <a id="provision-link" href="#" style="color:#1e4620;font-weight:700;font-size:18px;text-decoration:underline;"></a>
+  </div>
 </div>
+<style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
 
 <nav>
   <a class="logo-lockup" href="#">
@@ -1137,10 +1146,12 @@
 <!-- Firebase Auth SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
   firebase.initializeApp({
     apiKey: "AIzaSyDBYJruwKadbj9UU4AUK0flcq3b0StkY1w",
     authDomain: "mast-platform-prod.firebaseapp.com",
+    databaseURL: "https://mast-platform-prod-default-rtdb.firebaseio.com",
     projectId: "mast-platform-prod"
   });
 </script>
@@ -1302,10 +1313,56 @@
     history.replaceState({}, '', window.location.pathname);
   }
 
-  // Show success banner if redirected from Stripe success
+  // Show success banner and poll provisioning status
   if (window.location.search.indexOf('success=true') !== -1) {
+    var params = new URLSearchParams(window.location.search);
+    var subdomain = params.get('subdomain');
+    var plan = params.get('plan');
+
     document.getElementById('success-banner').classList.add('active');
     history.replaceState({}, '', window.location.pathname);
+
+    if (subdomain) {
+      // Poll Firebase for provisioning status
+      var statusRef = firebase.database().ref('mast-platform/tenants/' + subdomain + '/publicConfig/provisioningStatus');
+      var pollCount = 0;
+      var maxPolls = 60; // 2 minutes at 2s intervals
+
+      function checkProvisioningStatus() {
+        statusRef.once('value').then(function(snap) {
+          var status = snap.val();
+          pollCount++;
+
+          if (status === 'ready') {
+            // Provisioning complete — show the link
+            var tenantUrl = 'https://' + subdomain + '.runmast.com';
+            document.getElementById('provision-status').style.display = 'none';
+            document.getElementById('provision-ready').style.display = '';
+            var linkEl = document.getElementById('provision-link');
+            linkEl.href = tenantUrl;
+            linkEl.textContent = subdomain + '.runmast.com →';
+          } else if (pollCount >= maxPolls) {
+            // Timeout — show fallback message
+            document.getElementById('provision-text').textContent =
+              'Setup is taking longer than expected. Your site will be at ' + subdomain + '.runmast.com — check back in a few minutes.';
+            document.getElementById('provision-spinner').style.display = 'none';
+          } else {
+            // Still provisioning — update status text and poll again
+            var dots = '.'.repeat((pollCount % 3) + 1);
+            document.getElementById('provision-text').textContent = 'Setting up your account' + dots;
+            setTimeout(checkProvisioningStatus, 2000);
+          }
+        }).catch(function(err) {
+          console.error('Polling error:', err);
+          // On error, still retry a few times
+          if (pollCount < maxPolls) {
+            setTimeout(checkProvisioningStatus, 3000);
+          }
+        });
+      }
+
+      checkProvisioningStatus();
+    }
   }
 
   // --- Modal ---
