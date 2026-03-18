@@ -1188,7 +1188,13 @@
         <div style="font-size:48px;margin-bottom:16px;">📧</div>
         <h4 style="font-family:'Archivo',sans-serif;font-size:20px;color:var(--navy);margin-bottom:12px;">Check your email</h4>
         <p style="color:#555;line-height:1.6;margin-bottom:8px;">We sent a verification link to<br><strong id="verify-email-display"></strong></p>
+        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;margin:16px 0;text-align:left;">
+          <strong style="color:#856404;font-size:13px;">⚠️ Don't see the email?</strong>
+          <p style="color:#856404;font-size:13px;margin:4px 0 0;">Check your <strong>spam or junk folder</strong> — verification emails sometimes end up there.</p>
+        </div>
         <p style="color:#888;font-size:13px;">Click the link to verify your email and continue signup.<br>The link expires in 1 hour.</p>
+        <button type="button" id="resend-email-btn" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:14px;text-decoration:underline;margin-top:12px;padding:0;" onclick="resendVerificationEmail()">Resend verification email</button>
+        <div id="resend-status" style="font-size:13px;margin-top:8px;display:none;"></div>
         <button type="button" class="modal-submit" style="margin-top:16px;background:#e4ddd4;color:var(--navy);" onclick="closeSignup()">Close</button>
       </div>
     </form>
@@ -1206,11 +1212,27 @@
   // --- Email Link Sign-In Handler ---
   // Detect if user arrived via email verification link
   if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    // Try localStorage first, then fall back to URL params (cross-browser support)
     var pendingSignup = JSON.parse(localStorage.getItem('mast_pending_signup') || 'null');
+
+    if (!pendingSignup) {
+      // Recover signup data from URL query params (encoded in verification link)
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('signup_email')) {
+        pendingSignup = {
+          plan: params.get('signup_plan'),
+          email: params.get('signup_email'),
+          subdomain: params.get('signup_subdomain'),
+          businessName: params.get('signup_business'),
+          captchaToken: params.get('signup_captcha') || '',
+        };
+      }
+    }
+
     var emailForSignIn = pendingSignup ? pendingSignup.email : null;
 
     if (!emailForSignIn) {
-      // Edge case: different device/browser — ask for email
+      // Last resort: ask user for email
       emailForSignIn = window.prompt('Please enter your email to confirm:');
     }
 
@@ -1299,9 +1321,15 @@
     document.getElementById('signup-verify').style.display = 'none';
     // Reset captcha
     if (typeof hcaptcha !== 'undefined') try { hcaptcha.reset(); } catch(e) {}
-    // Update note and button text based on plan
+    // Reset resend status
+    var resendStatus = document.getElementById('resend-status');
+    if (resendStatus) { resendStatus.style.display = 'none'; resendStatus.textContent = ''; }
+    var resendBtn = document.getElementById('resend-email-btn');
+    if (resendBtn) { resendBtn.disabled = false; resendBtn.textContent = 'Resend verification email'; }
+    // Re-enable submit button and update text based on plan
     var noteEl = document.getElementById('signup-note');
     var submitBtn = document.getElementById('signup-submit');
+    submitBtn.disabled = false;
     if (plan === 'publish') {
       noteEl.innerHTML = 'We\'ll send a verification email to confirm your account.';
       submitBtn.textContent = 'Verify & Get Started';
@@ -1316,6 +1344,48 @@
   window.closeSignup = function() {
     document.getElementById('signup-modal').classList.remove('active');
     document.body.style.overflow = '';
+  };
+
+  // --- Resend Verification Email ---
+  window.resendVerificationEmail = function() {
+    var pendingSignup = JSON.parse(localStorage.getItem('mast_pending_signup') || 'null');
+    if (!pendingSignup || !pendingSignup.email) {
+      document.getElementById('resend-status').textContent = 'No signup details found. Please close and try again.';
+      document.getElementById('resend-status').style.display = 'block';
+      document.getElementById('resend-status').style.color = '#c5221f';
+      return;
+    }
+
+    var resendBtn = document.getElementById('resend-email-btn');
+    var resendStatus = document.getElementById('resend-status');
+    resendBtn.disabled = true;
+    resendBtn.textContent = 'Sending...';
+
+    var continueUrl = window.location.origin + '/'
+      + '?signup_plan=' + encodeURIComponent(pendingSignup.plan)
+      + '&signup_email=' + encodeURIComponent(pendingSignup.email)
+      + '&signup_subdomain=' + encodeURIComponent(pendingSignup.subdomain)
+      + '&signup_business=' + encodeURIComponent(pendingSignup.businessName)
+      + '&signup_captcha=' + encodeURIComponent(pendingSignup.captchaToken || '');
+
+    auth.sendSignInLinkToEmail(pendingSignup.email, {
+      url: continueUrl,
+      handleCodeInApp: true,
+    })
+    .then(function() {
+      resendStatus.textContent = 'Verification email sent! Check your inbox (and spam folder).';
+      resendStatus.style.color = '#1e7e34';
+      resendStatus.style.display = 'block';
+      resendBtn.textContent = 'Resend verification email';
+      resendBtn.disabled = false;
+    })
+    .catch(function(err) {
+      resendStatus.textContent = 'Failed to resend: ' + (err.message || 'Please try again.');
+      resendStatus.style.color = '#c5221f';
+      resendStatus.style.display = 'block';
+      resendBtn.textContent = 'Resend verification email';
+      resendBtn.disabled = false;
+    });
   };
 
   // Close on overlay click
@@ -1452,18 +1522,27 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending verification email...';
 
-    // Store signup data in localStorage to survive the email redirect
-    localStorage.setItem('mast_pending_signup', JSON.stringify({
+    // Store signup data in localStorage AND encode in URL for cross-browser support
+    var signupData = {
       plan: selectedPlan,
       email: email,
       subdomain: subdomain,
       captchaToken: captchaToken,
       businessName: businessName,
-    }));
+    };
+    localStorage.setItem('mast_pending_signup', JSON.stringify(signupData));
+
+    // Encode signup details in the verification URL so it works in any browser
+    var continueUrl = window.location.origin + '/'
+      + '?signup_plan=' + encodeURIComponent(selectedPlan)
+      + '&signup_email=' + encodeURIComponent(email)
+      + '&signup_subdomain=' + encodeURIComponent(subdomain)
+      + '&signup_business=' + encodeURIComponent(businessName)
+      + '&signup_captcha=' + encodeURIComponent(captchaToken);
 
     // Send Firebase email sign-in link
     var actionCodeSettings = {
-      url: window.location.origin + '/',
+      url: continueUrl,
       handleCodeInApp: true,
     };
 
