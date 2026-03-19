@@ -796,7 +796,8 @@
     .btn-secondary:hover { border-color: #f0ebe0; }
     .pain-strip { background: #0a1018; }
     .pain-item h3 { color: #f0ebe0; }
-    .modules-section .section-header span[style*="color:#0e1c2e"] { color: #f0ebe0 !important; }
+    .modules-section .section-header span[style*="color:#0e1c2e"],
+    .module-dot-label { color: #f0ebe0 !important; }
     .module-card:hover { background: #1f2b3b; }
     .module-name { color: #f0ebe0; }
     .pricing-section { background: #161d28; border-color: var(--border); }
@@ -825,6 +826,9 @@
     .subdomain-row input { color: var(--text); }
     .subdomain-suffix { background: #0d1218; border-left-color: var(--border); }
     .modal-submit { color: #111820; }
+    .verify-spam-warning { background: #2a2018 !important; border-color: #4a3828 !important; }
+    .verify-spam-warning strong,
+    .verify-spam-warning p { color: #d4a44c !important; }
     .cancel-banner { background: #2a2018; border-color: #4a3828; color: #d4a44c; }
     .success-banner { background: #1a2a18; border-bottom-color: #2a4a28; color: #6abf69; }
     .provision-link { color: #6abf69; }
@@ -998,15 +1002,15 @@
     <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Built for the small business</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Built for the small business</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Tested with a small business</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Tested with a small business</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span style="font-size:13px;font-weight:500;color:#0e1c2e;">Ready to help you run yours</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Ready to help you run yours</span>
       </div>
     </div>
   </div>
@@ -1330,12 +1334,12 @@
       <div id="signup-verify" style="display:none;text-align:center;padding:24px 0;">
         <div style="font-size:48px;margin-bottom:16px;">📧</div>
         <h4 style="font-family:'Archivo',sans-serif;font-size:20px;color:var(--navy);margin-bottom:12px;">Check your email</h4>
-        <p style="color:#555;line-height:1.6;margin-bottom:8px;">We sent a verification link to<br><strong id="verify-email-display"></strong></p>
-        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;margin:16px 0;text-align:left;">
+        <p style="color:var(--soft,#555);line-height:1.6;margin-bottom:8px;">We sent a verification link to<br><strong id="verify-email-display"></strong></p>
+        <div class="verify-spam-warning" style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;margin:16px 0;text-align:left;">
           <strong style="color:#856404;font-size:13px;">⚠️ Don't see the email?</strong>
           <p style="color:#856404;font-size:13px;margin:4px 0 0;">Check your <strong>spam or junk folder</strong> — verification emails sometimes end up there.</p>
         </div>
-        <p style="color:#888;font-size:13px;">Click the link to verify your email and continue signup.<br>The link expires in 1 hour.</p>
+        <p style="color:var(--muted,#888);font-size:13px;">Click the link to verify your email and continue signup.<br>The link expires in 1 hour.</p>
         <button type="button" id="resend-email-btn" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:14px;text-decoration:underline;margin-top:12px;padding:0;" onclick="resendVerificationEmail()">Resend verification email</button>
         <div id="resend-status" style="font-size:13px;margin-top:8px;display:none;"></div>
         <button type="button" class="modal-submit" style="margin-top:16px;background:#e4ddd4;color:var(--navy);" onclick="closeSignup()">Close</button>
