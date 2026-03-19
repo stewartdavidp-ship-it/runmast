@@ -896,15 +896,29 @@
   <a href="#pricing" style="color:var(--navy);font-weight:500;margin-left:8px;">See plans</a>
 </div>
 
-<div class="cancel-banner success-banner" id="success-banner">
-  <div id="provision-status">
-    <span id="provision-spinner" style="display:inline-block;margin-right:8px;animation:spin 1s linear infinite;">⚙️</span>
-    <span id="provision-text">Setting up your account...</span>
-  </div>
-  <div id="provision-ready" style="display:none;text-align:center;">
-    <div style="font-size:24px;margin-bottom:8px;">🎉</div>
-    <strong>Your site is live!</strong><br>
-    <a id="provision-link" href="#" class="provision-link"></a>
+<div class="cancel-banner success-banner" id="success-banner" style="display:none;"></div>
+
+<!-- Full-page provisioning overlay -->
+<div id="provision-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#faf7f3);
+  display:none;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;">
+  <div style="text-align:center;max-width:420px;padding:40px;">
+    <div id="provision-spinner-wrap" style="margin-bottom:32px;">
+      <svg width="48" height="48" viewBox="0 0 48 48" style="animation:spin 1.2s linear infinite;">
+        <circle cx="24" cy="24" r="20" stroke="var(--border,#e4ddd4)" stroke-width="4" fill="none"/>
+        <circle cx="24" cy="24" r="20" stroke="var(--amber,#e8a84c)" stroke-width="4" fill="none"
+          stroke-dasharray="80" stroke-dashoffset="60" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 id="provision-heading" style="font-family:'Archivo',sans-serif;font-weight:800;font-size:28px;
+      color:var(--text,#1a1a1a);letter-spacing:-0.025em;margin-bottom:12px;">Setting up your site...</h2>
+    <p id="provision-subtext" style="font-size:16px;color:var(--soft,#555);font-weight:300;line-height:1.6;">
+      This usually takes about 30 seconds.</p>
+    <div id="provision-ready" style="display:none;margin-top:24px;">
+      <div style="font-size:36px;margin-bottom:16px;">🎉</div>
+      <a id="provision-link" href="#" style="display:inline-block;padding:14px 32px;
+        background:var(--amber,#e8a84c);color:#111820;border-radius:10px;text-decoration:none;
+        font-weight:600;font-size:15px;">Go to your site →</a>
+    </div>
   </div>
 </div>
 <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
@@ -1427,20 +1441,21 @@
     history.replaceState({}, '', window.location.pathname);
   }
 
-  // Show success banner and poll provisioning status
+  // Show full-page provisioning overlay and poll status
   if (window.location.search.indexOf('success=true') !== -1) {
     var params = new URLSearchParams(window.location.search);
     var subdomain = params.get('subdomain');
     var plan = params.get('plan');
 
-    document.getElementById('success-banner').classList.add('active');
+    // Show full-page overlay
+    var overlay = document.getElementById('provision-overlay');
+    overlay.style.display = 'flex';
     history.replaceState({}, '', window.location.pathname);
 
     if (subdomain) {
-      // Poll Firebase for provisioning status
       var statusRef = firebase.database().ref('mast-platform/tenants/' + subdomain + '/publicConfig/provisioningStatus');
       var pollCount = 0;
-      var maxPolls = 60; // 2 minutes at 2s intervals
+      var maxPolls = 60;
 
       function checkProvisioningStatus() {
         statusRef.once('value').then(function(snap) {
@@ -1448,33 +1463,33 @@
           pollCount++;
 
           if (status === 'ready') {
-            // Provisioning complete — show the link
-            // Use .web.app URL initially (SSL on custom domain may still be provisioning)
-            var tenantUrl = 'https://mast-' + subdomain + '.web.app';
+            var tenantUrl = 'https://mast-' + subdomain + '.web.app/app/';
             var customDomain = subdomain + '.runmast.com';
-            document.getElementById('provision-status').style.display = 'none';
+            document.getElementById('provision-spinner-wrap').style.display = 'none';
+            document.getElementById('provision-heading').textContent = 'Your site is ready!';
+            document.getElementById('provision-subtext').textContent = customDomain;
             document.getElementById('provision-ready').style.display = '';
             var linkEl = document.getElementById('provision-link');
             linkEl.href = tenantUrl;
-            linkEl.textContent = customDomain + ' →';
+            linkEl.textContent = 'Go to your site →';
           } else if (pollCount >= maxPolls) {
-            // Timeout — show clickable link to .web.app URL (works immediately)
-            var fallbackUrl = 'https://mast-' + subdomain + '.web.app';
+            var fallbackUrl = 'https://mast-' + subdomain + '.web.app/app/';
             var customDomain = subdomain + '.runmast.com';
-            document.getElementById('provision-status').style.display = 'none';
+            document.getElementById('provision-spinner-wrap').style.display = 'none';
+            document.getElementById('provision-heading').textContent = 'Almost there!';
+            document.getElementById('provision-subtext').textContent = 'Your site at ' + customDomain + ' is finishing setup.';
             document.getElementById('provision-ready').style.display = '';
             var linkEl = document.getElementById('provision-link');
             linkEl.href = fallbackUrl;
-            linkEl.textContent = customDomain + ' →';
+            linkEl.textContent = 'Go to your site →';
           } else {
-            // Still provisioning — update status text and poll again
-            var dots = '.'.repeat((pollCount % 3) + 1);
-            document.getElementById('provision-text').textContent = 'Setting up your account' + dots;
+            var msgs = ['Setting up your site...', 'Creating your workspace...', 'Deploying your storefront...', 'Almost ready...'];
+            var msg = msgs[Math.min(Math.floor(pollCount / 4), msgs.length - 1)];
+            document.getElementById('provision-heading').textContent = msg;
             setTimeout(checkProvisioningStatus, 2000);
           }
         }).catch(function(err) {
           console.error('Polling error:', err);
-          // On error, still retry a few times
           if (pollCount < maxPolls) {
             setTimeout(checkProvisioningStatus, 3000);
           }
