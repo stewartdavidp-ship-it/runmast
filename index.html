@@ -718,12 +718,26 @@
     display: none;
     background: #fef3cd;
     border-bottom: 1px solid #f0d8a8;
-    padding: 12px 52px;
+    padding: 18px 52px;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500;
     color: var(--amber2);
   }
   .cancel-banner.active { display: block; }
+
+  .success-banner {
+    background: #e6f4ea;
+    border-bottom-color: #34a853;
+    color: #1e4620;
+  }
+
+  .provision-link {
+    color: #1e4620;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: underline;
+  }
 
   footer {
     padding: 36px 52px;
@@ -750,6 +764,65 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #ccc;
+  }
+
+  /* ========== DARK MODE ========== */
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --navy:   #e8dcc8;
+      --cream:  #1a2233;
+      --text:   #e0dcd5;
+      --muted:  #8a8580;
+      --soft:   #b0a99e;
+      --border: #2a3444;
+      --bg:     #111820;
+      --card:   #1a2233;
+    }
+
+    body { background: var(--bg); color: var(--text); }
+    nav { background: #161d28; border-bottom-color: var(--border); }
+    .logo-wordmark { color: #f0ebe0; }
+    .nav-cta { background: var(--amber); color: #111820; }
+    .nav-cta:hover { background: #d99a3e; }
+    h1 { color: #f0ebe0; }
+    h1 .amber { color: var(--amber); }
+    .hero-body strong { color: #f0ebe0; }
+    .btn-primary { color: #111820; }
+    .btn-secondary { color: #f0ebe0; border-color: var(--border); }
+    .btn-secondary:hover { border-color: #f0ebe0; }
+    .pain-strip { background: #0a1018; }
+    .module-card:hover { background: #1f2b3b; }
+    .module-name { color: #f0ebe0; }
+    .pricing-section { background: #161d28; border-color: var(--border); }
+    .section-header h2 { color: #f0ebe0; }
+    .price-card { background: var(--bg); border-color: var(--border); }
+    .price-card:hover { border-color: #4a5568; }
+    .price-card.featured { border-color: var(--amber); background: #1a2030; }
+    .price-tier { color: #f0ebe0; }
+    .price-dollar { color: #f0ebe0; }
+    .price-features li { border-bottom-color: var(--border); }
+    .price-cta-secondary { background: #f0ebe0; color: #111820; }
+    .price-cta-secondary:hover { background: #d4cec4; }
+    .e2e-section { background: #161d28; border-color: var(--border); }
+    .e2e-left h2 { color: #f0ebe0; }
+    .step { background: var(--bg); }
+    .step-title { color: #f0ebe0; }
+    .step-module { background: #2a2018; }
+    footer { background: var(--bg); }
+    .modal-overlay { background: rgba(0, 0, 0, 0.7); }
+    .modal { background: #1a2233; box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+    .modal h3 { color: #f0ebe0; }
+    .modal-close:hover { color: #f0ebe0; }
+    .form-group label { color: #f0ebe0; }
+    .form-group input { background: #111820; color: var(--text); border-color: var(--border); }
+    .subdomain-row { background: #111820; border-color: var(--border); }
+    .subdomain-row input { color: var(--text); }
+    .subdomain-suffix { background: #0d1218; border-left-color: var(--border); }
+    .modal-submit { color: #111820; }
+    .cancel-banner { background: #2a2018; border-color: #4a3828; color: #d4a44c; }
+    .success-banner { background: #1a2a18; border-bottom-color: #2a4a28; color: #6abf69; }
+    .provision-link { color: #6abf69; }
   }
 
   @media (max-width: 768px) {
@@ -783,7 +856,7 @@
   <a href="#pricing" style="color:var(--navy);font-weight:500;margin-left:8px;">See plans</a>
 </div>
 
-<div class="cancel-banner" id="success-banner" style="background:#e6f4ea;border-color:#34a853;color:#1e4620;">
+<div class="cancel-banner success-banner" id="success-banner">
   <div id="provision-status">
     <span id="provision-spinner" style="display:inline-block;margin-right:8px;animation:spin 1s linear infinite;">⚙️</span>
     <span id="provision-text">Setting up your account...</span>
@@ -791,7 +864,7 @@
   <div id="provision-ready" style="display:none;text-align:center;">
     <div style="font-size:24px;margin-bottom:8px;">🎉</div>
     <strong>Your site is live!</strong><br>
-    <a id="provision-link" href="#" style="color:#1e4620;font-weight:700;font-size:18px;text-decoration:underline;"></a>
+    <a id="provision-link" href="#" class="provision-link"></a>
   </div>
 </div>
 <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
@@ -1298,9 +1371,10 @@
         })
         .catch(function(err) {
           console.error('Email link sign-in failed:', err);
-          document.getElementById('success-banner').style.background = '#fce8e6';
-          document.getElementById('success-banner').style.color = '#c5221f';
-          document.getElementById('success-banner').textContent = 'Verification failed: ' + (err.message || 'Please try again.');
+          var banner = document.getElementById('success-banner');
+          banner.classList.remove('success-banner');
+          banner.classList.add('error-banner');
+          banner.textContent = 'Verification failed: ' + (err.message || 'Please try again.');
         });
     }
 
@@ -1335,17 +1409,23 @@
 
           if (status === 'ready') {
             // Provisioning complete — show the link
-            var tenantUrl = 'https://' + subdomain + '.runmast.com';
+            // Use .web.app URL initially (SSL on custom domain may still be provisioning)
+            var tenantUrl = 'https://mast-' + subdomain + '.web.app';
+            var customDomain = subdomain + '.runmast.com';
             document.getElementById('provision-status').style.display = 'none';
             document.getElementById('provision-ready').style.display = '';
             var linkEl = document.getElementById('provision-link');
             linkEl.href = tenantUrl;
-            linkEl.textContent = subdomain + '.runmast.com →';
+            linkEl.textContent = customDomain + ' →';
           } else if (pollCount >= maxPolls) {
-            // Timeout — show fallback message
-            document.getElementById('provision-text').textContent =
-              'Setup is taking longer than expected. Your site will be at ' + subdomain + '.runmast.com — check back in a few minutes.';
-            document.getElementById('provision-spinner').style.display = 'none';
+            // Timeout — show clickable link to .web.app URL (works immediately)
+            var fallbackUrl = 'https://mast-' + subdomain + '.web.app';
+            var customDomain = subdomain + '.runmast.com';
+            document.getElementById('provision-status').style.display = 'none';
+            document.getElementById('provision-ready').style.display = '';
+            var linkEl = document.getElementById('provision-link');
+            linkEl.href = fallbackUrl;
+            linkEl.textContent = customDomain + ' →';
           } else {
             // Still provisioning — update status text and poll again
             var dots = '.'.repeat((pollCount % 3) + 1);
