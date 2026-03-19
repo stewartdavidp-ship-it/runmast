@@ -911,6 +911,13 @@
 
 <div class="cancel-banner success-banner" id="success-banner" style="display:none;"></div>
 
+<!-- Full-page email verification overlay -->
+<div id="verify-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#faf7f3);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;">
+  <div style="font-size:48px;margin-bottom:20px;" id="verify-overlay-icon">&#9993;</div>
+  <h2 id="verify-overlay-title" style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:12px;">Verifying your email...</h2>
+  <p id="verify-overlay-msg" style="font-size:16px;color:var(--muted,#888);max-width:400px;line-height:1.5;">Hang tight — we're confirming your email and setting up your account.</p>
+</div>
+
 <!-- Full-page provisioning overlay -->
 <div id="provision-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#faf7f3);
   display:none;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;">
@@ -1388,8 +1395,9 @@
     }
 
     if (emailForSignIn) {
-      document.getElementById('success-banner').textContent = 'Verifying your email...';
-      document.getElementById('success-banner').classList.add('active');
+      // Show full-page overlay so user knows something is happening
+      var verifyOverlay = document.getElementById('verify-overlay');
+      verifyOverlay.style.display = 'flex';
 
       auth.signInWithEmailLink(emailForSignIn, window.location.href)
         .then(function(result) {
@@ -1398,15 +1406,20 @@
         })
         .then(function(idToken) {
           if (!pendingSignup) {
-            document.getElementById('success-banner').textContent = 'Email verified! But we lost your signup details. Please try again.';
+            document.getElementById('verify-overlay-icon').textContent = '\u26A0\uFE0F';
+            document.getElementById('verify-overlay-title').textContent = 'Email verified!';
+            document.getElementById('verify-overlay-msg').textContent = 'But we lost your signup details. Please try again.';
             return;
           }
 
           // Proceed to Stripe checkout or free provisioning
           if (pendingSignup.plan === 'publish') {
-            document.getElementById('success-banner').textContent = 'Email verified! Creating your account...';
+            document.getElementById('verify-overlay-title').textContent = 'Email verified!';
+            document.getElementById('verify-overlay-msg').textContent = 'Creating your account...';
           } else {
-            document.getElementById('success-banner').textContent = 'Email verified! Redirecting to payment...';
+            document.getElementById('verify-overlay-icon').textContent = '\u2705';
+            document.getElementById('verify-overlay-title').textContent = 'Email verified!';
+            document.getElementById('verify-overlay-msg').textContent = 'Redirecting to payment...';
           }
 
           return fetch(API_BASE + '/createCheckoutSession', {
@@ -1438,10 +1451,9 @@
         })
         .catch(function(err) {
           console.error('Email link sign-in failed:', err);
-          var banner = document.getElementById('success-banner');
-          banner.classList.remove('success-banner');
-          banner.classList.add('error-banner');
-          banner.textContent = 'Verification failed: ' + (err.message || 'Please try again.');
+          document.getElementById('verify-overlay-icon').textContent = '\u274C';
+          document.getElementById('verify-overlay-title').textContent = 'Verification failed';
+          document.getElementById('verify-overlay-msg').textContent = err.message || 'Please try again.';
         });
     }
 
