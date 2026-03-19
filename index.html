@@ -824,21 +824,30 @@
     .success-banner { background: #1a2a18; border-bottom-color: #2a4a28; color: #6abf69; }
     .provision-link { color: #6abf69; }
 
-    /* Events callout card — override inline white bg */
+    /* Hero — Mast sail icon: increase opacity and lighten fills for dark bg */
+    .hero-right svg { opacity: 0.12 !important; }
+    .hero-right svg rect { fill: #f0ebe0 !important; }
+    .hero-right svg path:last-child { fill: #f0ebe0 !important; }
+
+    /* Events callout card — force dark bg on the inline white card */
     .events-callout .price-card { background: #111820 !important; border-color: var(--border) !important; }
     .events-callout .price-card .price-tier { color: #f0ebe0 !important; }
     .events-callout .price-card .price-dollar { color: #f0ebe0 !important; }
     .events-callout .price-card .price-features li { color: var(--text) !important; }
+    .events-callout .price-card .price-tagline { color: var(--soft) !important; }
+    .events-callout .price-card .price-note { color: var(--muted) !important; }
+    .events-callout .price-card .price-cta-secondary { background: var(--amber) !important; color: #111820 !important; }
 
-    /* Tested With section — hardcoded light bg */
+    /* Tested With / Shir Glassworks section — full dark override */
     .tested-section { background: #161d28 !important; border-color: var(--border) !important; }
     .tested-section h2 { color: #f0ebe0 !important; }
     .tested-section p { color: var(--soft) !important; }
-    .tested-section [style*="background:#fff"] { background: #1a2233 !important; border-color: var(--border) !important; }
-    .tested-section [style*="color:#444"] { color: var(--soft) !important; }
-    .tested-section [style*="color:#0e1c2e"] { color: #f0ebe0 !important; }
-    .tested-section [style*="color:#555"] { color: var(--soft) !important; }
-    .tested-section [style*="color:#b8742a"] { color: var(--amber) !important; }
+    .tested-section div[style] { color: var(--text) !important; }
+    .tested-section div > div { background-color: transparent !important; }
+    .tested-grid > div > div:first-child { background: #1a2233 !important; border-color: var(--border) !important; }
+    .tested-grid > div > div:first-child p { color: var(--soft) !important; }
+    .tested-grid > div > div:first-child div { color: var(--amber) !important; }
+    .tested-grid > div > div:first-child p:last-child { color: #f0ebe0 !important; }
 
     /* E2E section right pane — step cards */
     .e2e-right .step { background: #1a2233 !important; }
@@ -852,15 +861,8 @@
     .module-card { background: #1a2233 !important; border-color: var(--border) !important; }
     .module-desc { color: var(--soft) !important; }
 
-    /* Hero section */
+    /* Hero section body text */
     .hero-body { color: var(--soft) !important; }
-
-    /* Inline color overrides for dark mode */
-    [style*="color:#555"] { color: var(--soft) !important; }
-    [style*="color:#0e1c2e"] { color: #f0ebe0 !important; }
-    [style*="color:#444"] { color: var(--soft) !important; }
-    [style*="background:#fdf8f2"] { background: #161d28 !important; }
-    [style*="background:#fff"] { background: #1a2233 !important; }
   }
 
   @media (max-width: 768px) {
