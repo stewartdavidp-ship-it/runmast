@@ -824,6 +824,15 @@
     .modal-close:hover { color: #f0ebe0; }
     .form-group label { color: #f0ebe0; }
     .form-group input { background: #111820; color: var(--text); border-color: var(--border); }
+    .form-group input:-webkit-autofill,
+    .form-group input:-webkit-autofill:hover,
+    .form-group input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px #111820 inset !important;
+      -webkit-text-fill-color: var(--text) !important;
+      background-color: #111820 !important;
+      caret-color: var(--text);
+      transition: background-color 5000s ease-in-out 0s;
+    }
     .subdomain-row { background: #111820; border-color: var(--border); }
     .subdomain-row input { color: var(--text); }
     .subdomain-suffix { background: #0d1218; border-left-color: var(--border); }
