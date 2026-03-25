@@ -1626,8 +1626,15 @@
   };
 
   // Close on overlay click
+  // Close on backdrop click — but not when user is selecting text inside the modal
+  // Track where mousedown started to avoid closing on drag-select that ends on backdrop
+  var _modalMouseDownTarget = null;
+  document.getElementById('signup-modal').addEventListener('mousedown', function(e) {
+    _modalMouseDownTarget = e.target;
+  });
   document.getElementById('signup-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeSignup();
+    if (e.target === this && _modalMouseDownTarget === this) closeSignup();
+    _modalMouseDownTarget = null;
   });
 
   // Close on Escape
