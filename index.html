@@ -1625,16 +1625,24 @@
     });
   };
 
-  // Close on overlay click
-  // Close on backdrop click — but not when user is selecting text inside the modal
-  // Track where mousedown started to avoid closing on drag-select that ends on backdrop
-  var _modalMouseDownTarget = null;
+  // Close on backdrop click — but not when user is selecting/swiping text inside the modal.
+  // Uses coordinate comparison: only close if both mousedown AND mouseup hit the overlay
+  // (not just target check — touch gestures can mis-report targets on swipe).
+  var _modalDownCoords = null;
   document.getElementById('signup-modal').addEventListener('mousedown', function(e) {
-    _modalMouseDownTarget = e.target;
+    _modalDownCoords = { x: e.clientX, y: e.clientY, target: e.target };
   });
-  document.getElementById('signup-modal').addEventListener('click', function(e) {
-    if (e.target === this && _modalMouseDownTarget === this) closeSignup();
-    _modalMouseDownTarget = null;
+  document.getElementById('signup-modal').addEventListener('mouseup', function(e) {
+    if (!_modalDownCoords) return;
+    var down = _modalDownCoords;
+    _modalDownCoords = null;
+    // Both down and up must be on the overlay itself (not inside .modal)
+    if (down.target !== this || e.target !== this) return;
+    // Also reject if the pointer moved significantly (drag/select gesture)
+    var dx = Math.abs(e.clientX - down.x);
+    var dy = Math.abs(e.clientY - down.y);
+    if (dx > 10 || dy > 10) return;
+    closeSignup();
   });
 
   // Close on Escape
