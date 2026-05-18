@@ -1500,7 +1500,15 @@
     if (subdomain) {
       var statusRef = firebase.database().ref('mast-platform/tenants/' + subdomain + '/publicConfig/provisioningStatus');
       var pollCount = 0;
-      var maxPolls = 60;
+      var softTimeoutPolls = 60;       // 60 * 2s = 5 min; after this, soften copy but KEEP polling
+      var softenedMessageShown = false;
+      // Bug fix (2026-05-18): previously at pollCount >= maxPolls we stopped polling and
+      // displayed a static "Almost there!" message linking to a URL that might still 404.
+      // Real prod signups occasionally take 6-10 min on cold-start, leaving users stuck
+      // on a screen that never transitions to "ready" even after provisioning finishes.
+      // Fix: at the 5-min mark, soften the copy + back off the poll interval, but keep
+      // polling indefinitely so the overlay still flips to "Your site is ready!" when
+      // provisioningStatus finally lands on 'ready'.
 
       function checkProvisioningStatus() {
         statusRef.once('value').then(function(snap) {
@@ -1517,16 +1525,23 @@
             var linkEl = document.getElementById('provision-link');
             linkEl.href = tenantUrl;
             linkEl.textContent = 'Go to your site →';
-          } else if (pollCount >= maxPolls) {
-            var fallbackUrl = 'https://mast-' + subdomain + '.web.app/app/';
-            var customDomain = subdomain + '.runmast.com';
-            document.getElementById('provision-spinner-wrap').style.display = 'none';
-            document.getElementById('provision-heading').textContent = 'Almost there!';
-            document.getElementById('provision-subtext').textContent = 'Your site at ' + customDomain + ' is finishing setup.';
-            document.getElementById('provision-ready').style.display = '';
-            var linkEl = document.getElementById('provision-link');
-            linkEl.href = fallbackUrl;
-            linkEl.textContent = 'Go to your site →';
+            return; // ready — stop polling
+          }
+
+          if (pollCount >= softTimeoutPolls) {
+            // Past 5 min: soften copy once, but keep polling at a slower cadence.
+            // We do NOT clear the poll loop — provisioning sometimes completes at 6-10 min
+            // and the overlay must still recover when it does.
+            if (!softenedMessageShown) {
+              softenedMessageShown = true;
+              var customDomain = subdomain + '.runmast.com';
+              document.getElementById('provision-heading').textContent = 'Setup taking longer than expected';
+              document.getElementById('provision-subtext').textContent =
+                'Your site at ' + customDomain + ' is still being prepared. ' +
+                'You can leave this page open — it will refresh automatically when ready. ' +
+                'We’ll also email you the moment it’s live.';
+            }
+            setTimeout(checkProvisioningStatus, 5000); // back off to every 5s after soft timeout
           } else {
             var msgs = ['Setting up your site...', 'Creating your workspace...', 'Deploying your storefront...', 'Almost ready...'];
             var msg = msgs[Math.min(Math.floor(pollCount / 4), msgs.length - 1)];
@@ -1535,9 +1550,9 @@
           }
         }).catch(function(err) {
           console.error('Polling error:', err);
-          if (pollCount < maxPolls) {
-            setTimeout(checkProvisioningStatus, 3000);
-          }
+          // Keep retrying on transient errors regardless of soft-timeout state.
+          var retryDelay = pollCount >= softTimeoutPolls ? 5000 : 3000;
+          setTimeout(checkProvisioningStatus, retryDelay);
         });
       }
 
