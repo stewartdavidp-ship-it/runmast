@@ -1250,20 +1250,21 @@
   }
   .promo-bar a { color: #0e1c2e; text-decoration: underline; font-weight: 600; }
 
-  /* ========== HERO SCREENSHOT PLACEHOLDER ========== */
+  /* ========== HERO PHONE MOCKUP ==========
+     Real DOM mockup of the Mast POS — stands in for a screenshot until
+     we drop a real one in. Hardcoded colors so it stays on-brand in both
+     themes (the phone is a device, not a themed surface). */
   .hero-shot {
     width: 100%;
     aspect-ratio: 4 / 5;
     border-radius: 18px;
-    background: linear-gradient(160deg, #fff 0%, #f4ede0 100%);
-    border: 1.5px solid var(--border);
-    box-shadow: 0 24px 48px -16px rgba(14, 28, 46, 0.15);
+    background: linear-gradient(160deg, #fdf3e3 0%, #f4ede0 60%, #e8dcc8 100%);
+    border: 1.5px solid #e4ddd4;
+    box-shadow: 0 24px 48px -16px rgba(14, 28, 46, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    padding: 32px;
-    text-align: center;
+    padding: 32px 24px;
     position: relative;
     overflow: hidden;
   }
@@ -1272,34 +1273,220 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 20% 10%, rgba(232, 168, 76, 0.10), transparent 40%),
-      radial-gradient(circle at 90% 90%, rgba(14, 28, 46, 0.08), transparent 50%);
+      radial-gradient(circle at 20% 10%, rgba(232, 168, 76, 0.20), transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(14, 28, 46, 0.10), transparent 55%);
     pointer-events: none;
   }
-  .hero-shot-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--amber2);
-    margin-bottom: 12px;
+  .hero-phone {
+    position: relative;
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 9 / 19;
+    background: #0e1c2e;
+    border-radius: 28px;
+    padding: 8px;
+    box-shadow:
+      0 24px 48px -12px rgba(14, 28, 46, 0.45),
+      0 4px 8px -2px rgba(14, 28, 46, 0.25),
+      inset 0 0 0 1px rgba(255,255,255,0.05);
+    transform: rotate(-3deg);
+  }
+  .hero-phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #f7f4ee;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'DM Sans', sans-serif;
+    color: #0e1c2e;
     position: relative;
   }
-  .hero-shot-title {
+  .hero-phone-notch {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 14px;
+    background: #0e1c2e;
+    border-radius: 0 0 10px 10px;
+    z-index: 2;
+  }
+  .hero-phone-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 16px 4px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #0e1c2e;
+  }
+  .hero-phone-header {
+    padding: 18px 14px 10px;
+    border-bottom: 1px solid #ece4d6;
+  }
+  .hero-phone-eyebrow {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b8742a;
+    margin-bottom: 3px;
+  }
+  .hero-phone-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: #0e1c2e;
+  }
+  .hero-phone-list {
+    flex: 1;
+    padding: 8px 10px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+  }
+  .hero-phone-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #ece4d6;
+    border-radius: 8px;
+    padding: 6px 8px;
+  }
+  .hero-phone-item-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #e8a84c 0%, #b8742a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-phone-item-img.v2 { background: linear-gradient(135deg, #3a5a78 0%, #0e1c2e 100%); }
+  .hero-phone-item-img.v3 { background: linear-gradient(135deg, #c4b9a8 0%, #8a7e6d 100%); }
+  .hero-phone-item-img::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+  }
+  .hero-phone-item-meta { flex: 1; min-width: 0; }
+  .hero-phone-item-name {
     font-family: 'Archivo', sans-serif;
     font-weight: 700;
-    font-size: 16px;
-    color: var(--navy);
-    margin-bottom: 8px;
-    position: relative;
+    font-size: 9px;
+    color: #0e1c2e;
+    line-height: 1.15;
+    margin-bottom: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .hero-shot-note {
+  .hero-phone-item-sub {
+    font-size: 8px;
+    font-weight: 400;
+    color: #8a8580;
+  }
+  .hero-phone-item-price {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    color: #0e1c2e;
+    flex-shrink: 0;
+  }
+  .hero-phone-checkout {
+    padding: 8px 10px 12px;
+    border-top: 1px solid #ece4d6;
+    background: #f0ebe0;
+  }
+  .hero-phone-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    padding: 0 2px;
+  }
+  .hero-phone-total-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #6a6055;
+  }
+  .hero-phone-total-amount {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: #0e1c2e;
+    letter-spacing: -0.02em;
+  }
+  .hero-phone-tap {
+    background: linear-gradient(180deg, #e8a84c 0%, #d99a3e 100%);
+    color: #0e1c2e;
+    text-align: center;
+    padding: 9px 8px;
+    border-radius: 8px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 6px -1px rgba(184, 116, 42, 0.4);
+  }
+  .hero-phone-tap-icon {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  /* Small floating badges around the phone — wordless callouts that hint at
+     channel sync without needing labels. Decorative. */
+  .hero-shot-badge {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #e4ddd4;
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-shadow: 0 8px 20px -8px rgba(14, 28, 46, 0.25);
+    z-index: 2;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-shot-badge-1 { top: 12%; left: 4%; }
+  .hero-shot-badge-2 { bottom: 14%; right: 4%; }
+  .hero-shot-badge-eyebrow {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b8742a;
+    margin-bottom: 2px;
+  }
+  .hero-shot-badge-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
     font-size: 12px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.5;
-    max-width: 240px;
-    position: relative;
+    color: #0e1c2e;
+    letter-spacing: -0.01em;
+  }
+  .hero-shot-badge-sub {
+    font-size: 10px;
+    font-weight: 400;
+    color: #6a6055;
+    margin-top: 1px;
+  }
+  .hero-shot-badge-pulse {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34a853;
+    margin-right: 5px;
+    box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.18);
+    vertical-align: middle;
   }
 
   .hero-microproof {
@@ -1653,12 +1840,75 @@
   </div>
 
   <div class="hero-right">
-    <!-- TODO: replace with real product screenshot. Suggested: POS-on-phone or
-         dashboard view exported from the admin app. Aspect 4:5 preferred. -->
-    <div class="hero-shot" role="img" aria-label="Mast product preview">
-      <div class="hero-shot-label">Product preview</div>
-      <div class="hero-shot-title">A sale at a craft fair, end to end</div>
-      <div class="hero-shot-note">[ Drop in a real product screenshot here — POS on a phone, dashboard, or scrolling workflow GIF. Keep aspect ratio close to 4:5. ]</div>
+    <!-- Hero phone mockup — pure HTML/CSS render of the Mast POS, stands
+         in until we have a real screenshot to drop in. Aspect 4:5 frame
+         with two decorative badges layered for depth. -->
+    <div class="hero-shot" role="img" aria-label="Mast POS — tap-to-charge at a craft fair">
+
+      <!-- Top-left floating badge: "live" inventory tick -->
+      <div class="hero-shot-badge hero-shot-badge-1">
+        <div class="hero-shot-badge-eyebrow"><span class="hero-shot-badge-pulse"></span>Inventory</div>
+        <div class="hero-shot-badge-title">−1 across all channels</div>
+        <div class="hero-shot-badge-sub">Shopify · Etsy · your site</div>
+      </div>
+
+      <!-- The phone -->
+      <div class="hero-phone">
+        <div class="hero-phone-screen">
+          <div class="hero-phone-notch"></div>
+          <div class="hero-phone-statusbar">
+            <span>9:41</span>
+            <span>•••</span>
+            <span>100%</span>
+          </div>
+          <div class="hero-phone-header">
+            <div class="hero-phone-eyebrow">Sell · Spring Market Booth</div>
+            <div class="hero-phone-title">New sale</div>
+          </div>
+
+          <div class="hero-phone-list">
+            <div class="hero-phone-item">
+              <div class="hero-phone-item-img"></div>
+              <div class="hero-phone-item-meta">
+                <div class="hero-phone-item-name">Pumpkin · Amber</div>
+                <div class="hero-phone-item-sub">Small · ×1</div>
+              </div>
+              <div class="hero-phone-item-price">$68</div>
+            </div>
+            <div class="hero-phone-item">
+              <div class="hero-phone-item-img v2"></div>
+              <div class="hero-phone-item-meta">
+                <div class="hero-phone-item-name">Tumbler · Indigo</div>
+                <div class="hero-phone-item-sub">Set of 2</div>
+              </div>
+              <div class="hero-phone-item-price">$94</div>
+            </div>
+            <div class="hero-phone-item">
+              <div class="hero-phone-item-img v3"></div>
+              <div class="hero-phone-item-meta">
+                <div class="hero-phone-item-name">Vase · Smoke</div>
+                <div class="hero-phone-item-sub">Tall · ×1</div>
+              </div>
+              <div class="hero-phone-item-price">$142</div>
+            </div>
+          </div>
+
+          <div class="hero-phone-checkout">
+            <div class="hero-phone-total-row">
+              <span class="hero-phone-total-label">Total</span>
+              <span class="hero-phone-total-amount">$304.00</span>
+            </div>
+            <div class="hero-phone-tap"><span class="hero-phone-tap-icon">⌁</span>Tap card to charge</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom-right floating badge: "post-sale" automation hint -->
+      <div class="hero-shot-badge hero-shot-badge-2">
+        <div class="hero-shot-badge-eyebrow">After the sale</div>
+        <div class="hero-shot-badge-title">Receipt sent · customer added</div>
+        <div class="hero-shot-badge-sub">Ready for the next post →</div>
+      </div>
     </div>
   </div>
 </div>
