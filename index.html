@@ -1401,6 +1401,32 @@
   var checkTimeout = null;
   var auth = firebase.auth();
 
+  // --- Automated-test bypass (matches MAST_TEST_BYPASS_TOKEN env var on the
+  // platform CFs). Activated by ?test_bypass=<token> in the URL once on page
+  // load; we stash it on window and scrub it from the URL so it doesn't end
+  // up in browser history / referrer headers visible to third parties.
+  var _testBypassToken = (function() {
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var t = params.get('test_bypass');
+      if (t && t.length >= 16) {
+        // Show an unmissable banner so test mode can't accidentally stay on for real users.
+        var banner = document.createElement('div');
+        banner.textContent = 'TEST MODE — captcha + email-verify bypassed for automated testing';
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c4853c;color:#fff;text-align:center;padding:6px 12px;font-size:13px;font-weight:600;z-index:9999;letter-spacing:0.04em;';
+        if (document.body) document.body.prepend(banner);
+        else document.addEventListener('DOMContentLoaded', function() { document.body.prepend(banner); });
+        // Scrub from URL so a copy-paste of the address doesn't leak the token.
+        params.delete('test_bypass');
+        var q = params.toString();
+        history.replaceState({}, '', window.location.pathname + (q ? '?' + q : '') + window.location.hash);
+        return t;
+      }
+    } catch(_e) { /* ignore */ }
+    return null;
+  })();
+  function isTestMode() { return !!_testBypassToken; }
+
   // V1 tier price label lookup — kept in sync with backend module-system.js
   // DEFAULT_TIER_ALLOCATIONS and the seeded Stripe Price objects.
   var V1_PRICE_LABELS = {
@@ -1851,17 +1877,75 @@
       return;
     }
 
-    // Verify hCaptcha
-    var captchaToken = typeof hcaptcha !== 'undefined' ? hcaptcha.getResponse() : '';
-    if (!captchaToken) {
-      errorEl.textContent = 'Please complete the captcha.';
-      errorEl.style.display = 'block';
-      return;
+    // Verify hCaptcha — skipped in test-bypass mode
+    var captchaToken = '';
+    if (!isTestMode()) {
+      captchaToken = typeof hcaptcha !== 'undefined' ? hcaptcha.getResponse() : '';
+      if (!captchaToken) {
+        errorEl.textContent = 'Please complete the captcha.';
+        errorEl.style.display = 'block';
+        return;
+      }
     }
 
     errorEl.style.display = 'none';
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending verification email...';
+    submitBtn.textContent = isTestMode() ? 'Provisioning (test mode)...' : 'Sending verification email...';
+
+    // Test-bypass short-circuit — sign in anonymously and call the right CF
+    // directly, skipping the email-link verification round-trip entirely.
+    if (isTestMode()) {
+      auth.signInAnonymously()
+        .then(function(result) { return result.user.getIdToken(); })
+        .then(function(idToken) {
+          var isFree = selectedPlan === 'free' || selectedPlan === 'publish';
+          if (isFree) {
+            return fetch(API_BASE + '/provisionFreeTenant', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + idToken },
+              body: JSON.stringify({
+                tenantId: subdomain,
+                tenantName: businessName,
+                ownerEmail: email,
+                subdomain: subdomain,
+                testBypass: _testBypassToken,
+              }),
+            }).then(function(res) {
+              if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Provisioning failed'); });
+              return res.json();
+            }).then(function() {
+              window.location.href = window.location.origin + '/?success=true&plan=free&subdomain=' + encodeURIComponent(subdomain);
+            });
+          }
+          return fetch(API_BASE + '/createCheckoutSession', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + idToken },
+            body: JSON.stringify({
+              plan: selectedPlan,
+              billingInterval: selectedBillingInterval,
+              email: email,
+              subdomain: subdomain,
+              businessName: businessName,
+              captchaToken: '',
+              testBypass: _testBypassToken,
+            }),
+          }).then(function(res) {
+            if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Server error'); });
+            return res.json();
+          }).then(function(data) {
+            if (data.sessionUrl) window.location.href = data.sessionUrl;
+            else if (data.redirectUrl) window.location.href = data.redirectUrl;
+          });
+        })
+        .catch(function(err) {
+          console.error('Test-bypass flow failed:', err);
+          errorEl.textContent = err.message || 'Test bypass failed.';
+          errorEl.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = (selectedPlan === 'free' || selectedPlan === 'publish') ? 'Verify & Get Started' : 'Verify & Continue';
+        });
+      return;
+    }
 
     // Store signup data in localStorage AND encode in URL for cross-browser support
     var signupData = {
