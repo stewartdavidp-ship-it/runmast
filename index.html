@@ -1101,78 +1101,91 @@
     <div class="section-header">
       <div class="section-eyebrow">Simple pricing</div>
       <h2>One platform. Every stage of your business.</h2>
-      <p>Start free with your website, then add modules as your business grows. One monthly number — no surprises.</p>
+      <p>Start free, then upgrade as your revenue grows. Tokens, coin bonus, and integrations scale with your plan — no surprises.</p>
+    </div>
+
+    <!-- V1 billing-interval toggle (F-M1d) -->
+    <div id="billing-interval-toggle" style="display:flex;justify-content:center;align-items:center;gap:10px;margin:24px 0 32px;font-size:14px;">
+      <button type="button" class="billing-toggle-btn active" data-interval="month" onclick="setBillingInterval('month')" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:600;cursor:pointer;transition:all 0.15s;">Monthly</button>
+      <button type="button" class="billing-toggle-btn" data-interval="year" onclick="setBillingInterval('year')" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font-weight:600;cursor:pointer;transition:all 0.15s;">Annual <span style="color:var(--green);font-weight:700;margin-left:6px;">2 months free</span></button>
     </div>
 
     <div class="pricing-grid">
 
-      <!-- PUBLISH (Free) -->
-      <div class="price-card" data-plan="publish">
-        <div class="price-tier">Publish</div>
-        <div class="price-tagline">Your business online, no cost.</div>
+      <!-- FREE (V1) -->
+      <div class="price-card" data-plan="free">
+        <div class="price-tier">Free</div>
+        <div class="price-tagline">Get on Mast. Start building.</div>
         <div class="price-amount">
-          <span class="price-dollar">Free</span>
+          <span class="price-dollar" data-price-month="Free" data-price-year="Free">Free</span>
         </div>
         <div class="price-note">No credit card required.</div>
         <ul class="price-features">
-          <li>Public website + product catalog</li>
-          <li>No storefront or purchasing</li>
-          <li>Manage your account</li>
+          <li>250 tokens / month</li>
+          <li>0% coin purchase bonus</li>
+          <li>0 Plaid accounts</li>
+          <li>Email metering applies</li>
+          <li>BYO Anthropic + Resend supported</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('publish', 'Free')">Get Started Free</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('free', 'Free')">Get Started Free</button>
       </div>
 
-      <!-- LAUNCH -->
-      <div class="price-card" data-plan="launch">
-        <div class="price-tier">Launch</div>
-        <div class="price-tagline">Open for business.</div>
+      <!-- STARTER (V1) -->
+      <div class="price-card" data-plan="starter">
+        <div class="price-tier">Starter</div>
+        <div class="price-tagline">First revenue, real tools.</div>
         <div class="price-amount">
-          <span class="price-dollar">$49</span>
-          <span class="price-period">/month</span>
+          <span class="price-dollar" data-price-month="$19" data-price-year="$190">$19</span>
+          <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
-        <div class="price-note">Billed monthly. Cancel anytime.</div>
+        <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>Choose 1 module</li>
-          <li>All Manage capabilities</li>
-          <li>Studio Assistant included</li>
+          <li>750 tokens / month</li>
+          <li>+15% coin purchase bonus</li>
+          <li>Up to 5 Plaid accounts</li>
+          <li>+20% email-only buffer</li>
+          <li>Ask AI + Studio Assistant included</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('launch', '$49/mo')">Get Started</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('starter')">Get Started</button>
       </div>
 
-      <!-- OPERATE -->
-      <div class="price-card featured" data-plan="operate">
+      <!-- GROWTH (V1, featured) -->
+      <div class="price-card featured" data-plan="growth">
         <div class="price-badge">Most Popular</div>
-        <div class="price-tier">Operate</div>
-        <div class="price-tagline">Running a real operation.</div>
+        <div class="price-tier">Growth</div>
+        <div class="price-tagline">Scaling past $1K/month.</div>
         <div class="price-amount">
-          <span class="price-dollar">$99</span>
-          <span class="price-period">/month</span>
+          <span class="price-dollar" data-price-month="$49" data-price-year="$490">$49</span>
+          <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
-        <div class="price-note">Billed monthly. Cancel anytime.</div>
+        <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>Choose up to 3 modules</li>
-          <li>All Manage capabilities</li>
-          <li>Studio Assistant included</li>
-          <li style="font-size:0.82em;color:#8a7e6d;font-style:italic;">Most businesses start with Sell + Ship + Make</li>
+          <li>2,500 tokens / month</li>
+          <li>+30% coin purchase bonus</li>
+          <li>Up to 15 Plaid accounts</li>
+          <li>+20% email-only buffer</li>
+          <li>All AI features + priority support</li>
         </ul>
-        <button class="price-cta price-cta-primary" onclick="openSignup('operate', '$99/mo')">Get Started</button>
+        <button class="price-cta price-cta-primary" onclick="openSignup('growth')">Get Started</button>
       </div>
 
-      <!-- COMMAND -->
-      <div class="price-card" data-plan="command">
-        <div class="price-tier">Command</div>
-        <div class="price-tagline">Everything connected.</div>
+      <!-- SCALE (V1) -->
+      <div class="price-card" data-plan="scale">
+        <div class="price-tier">Scale</div>
+        <div class="price-tagline">Multi-channel, multi-team.</div>
         <div class="price-amount">
-          <span class="price-dollar">$149</span>
-          <span class="price-period">/month</span>
+          <span class="price-dollar" data-price-month="$79" data-price-year="$790">$79</span>
+          <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
-        <div class="price-note">Billed monthly. Cancel anytime.</div>
+        <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>All 8 modules included</li>
-          <li>All Manage capabilities</li>
-          <li>Studio Assistant included</li>
+          <li>10,000 tokens / month</li>
+          <li>+50% coin purchase bonus</li>
+          <li>Up to 50 Plaid accounts</li>
+          <li>+20% email-only buffer</li>
+          <li>Auto-upgrade by revenue + full AI</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('command', '$149/mo')">Get Started</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('scale')">Get Started</button>
       </div>
 
     </div>
@@ -1382,10 +1395,45 @@
 <script>
 (function() {
   var API_BASE = 'https://us-central1-mast-platform-prod.cloudfunctions.net';
-  var selectedPlan = 'operate';
+  var selectedPlan = 'growth';
+  var selectedBillingInterval = 'month'; // V1 toggle state
   var subdomainAvailable = false;
   var checkTimeout = null;
   var auth = firebase.auth();
+
+  // V1 tier price label lookup — kept in sync with backend module-system.js
+  // DEFAULT_TIER_ALLOCATIONS and the seeded Stripe Price objects.
+  var V1_PRICE_LABELS = {
+    free:    { month: 'Free',           year: 'Free' },
+    starter: { month: '$19/mo',         year: '$190/yr (2 months free)' },
+    growth:  { month: '$49/mo',         year: '$490/yr (2 months free)' },
+    scale:   { month: '$79/mo',         year: '$790/yr (2 months free)' }
+  };
+
+  window.setBillingInterval = function(interval) {
+    if (interval !== 'month' && interval !== 'year') return;
+    selectedBillingInterval = interval;
+    // Toggle button visual state
+    document.querySelectorAll('.billing-toggle-btn').forEach(function(btn) {
+      var active = btn.dataset.interval === interval;
+      btn.classList.toggle('active', active);
+      btn.style.background = active ? 'var(--primary)' : 'transparent';
+      btn.style.color = active ? '#fff' : 'var(--text)';
+    });
+    // Update prices in cards
+    document.querySelectorAll('.pricing-grid .price-dollar').forEach(function(el) {
+      var v = el.dataset['price' + (interval === 'year' ? 'Year' : 'Month')];
+      if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('.pricing-grid .price-period').forEach(function(el) {
+      var v = el.dataset['period' + (interval === 'year' ? 'Year' : 'Month')];
+      if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('.pricing-grid .price-note').forEach(function(el) {
+      var v = el.dataset['note' + (interval === 'year' ? 'Year' : 'Month')];
+      if (v != null) el.textContent = v;
+    });
+  };
 
   // --- Email Link Sign-In Handler ---
   // Detect if user arrived via email verification link
@@ -1403,6 +1451,7 @@
           subdomain: params.get('signup_subdomain'),
           businessName: params.get('signup_business'),
           captchaToken: params.get('signup_captcha') || '',
+          billingInterval: params.get('signup_interval') || 'month',
         };
       }
     }
@@ -1432,15 +1481,35 @@
             return;
           }
 
-          // Proceed to Stripe checkout or free provisioning
-          if (pendingSignup.plan === 'publish') {
+          // V1 Free path: call provisionFreeTenant; otherwise Stripe Checkout
+          var isFree = pendingSignup.plan === 'free' || pendingSignup.plan === 'publish';
+          if (isFree) {
             document.getElementById('verify-overlay-title').textContent = 'Email verified!';
-            document.getElementById('verify-overlay-msg').textContent = 'Creating your account...';
-          } else {
-            document.getElementById('verify-overlay-icon').textContent = '\u2705';
-            document.getElementById('verify-overlay-title').textContent = 'Email verified!';
-            document.getElementById('verify-overlay-msg').textContent = 'Redirecting to payment...';
+            document.getElementById('verify-overlay-msg').textContent = 'Creating your Free tenant...';
+            return fetch(API_BASE + '/provisionFreeTenant', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + idToken },
+              body: JSON.stringify({
+                tenantId: pendingSignup.subdomain,
+                tenantName: pendingSignup.businessName,
+                ownerEmail: pendingSignup.email,
+                subdomain: pendingSignup.subdomain,
+              }),
+            })
+            .then(function(res) {
+              if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Provisioning failed'); });
+              return res.json();
+            })
+            .then(function(data) {
+              localStorage.removeItem('mast_pending_signup');
+              // Forward to the provisioning success overlay (same UX as paid signup).
+              window.location.href = window.location.origin + '/?success=true&plan=free&subdomain=' + encodeURIComponent(pendingSignup.subdomain);
+            });
           }
+
+          document.getElementById('verify-overlay-icon').textContent = '\u2705';
+          document.getElementById('verify-overlay-title').textContent = 'Email verified!';
+          document.getElementById('verify-overlay-msg').textContent = 'Redirecting to payment...';
 
           return fetch(API_BASE + '/createCheckoutSession', {
             method: 'POST',
@@ -1450,6 +1519,7 @@
             },
             body: JSON.stringify({
               plan: pendingSignup.plan,
+              billingInterval: pendingSignup.billingInterval || 'month',
               email: pendingSignup.email,
               subdomain: pendingSignup.subdomain,
               businessName: pendingSignup.businessName,
@@ -1562,8 +1632,11 @@
 
   // --- Modal ---
 
-  window.openSignup = function(plan, priceLabel) {
+  window.openSignup = function(plan, priceLabelOverride) {
     selectedPlan = plan;
+    var labelByInterval = V1_PRICE_LABELS[plan] || {};
+    var priceLabel = priceLabelOverride
+      || (plan === 'free' ? 'Free' : (labelByInterval[selectedBillingInterval] || ''));
     document.getElementById('modal-plan-label').textContent =
       plan.charAt(0).toUpperCase() + plan.slice(1) + ' plan \u2014 ' + priceLabel;
     document.getElementById('signup-modal').classList.add('active');
@@ -1582,11 +1655,11 @@
     var noteEl = document.getElementById('signup-note');
     var submitBtn = document.getElementById('signup-submit');
     submitBtn.disabled = false;
-    if (plan === 'publish') {
-      noteEl.innerHTML = 'We\'ll send a verification email to confirm your account.';
+    if (plan === 'free') {
+      noteEl.innerHTML = 'We\'ll send a verification email to confirm your account, then provision your Free tenant \u2014 no payment required.';
       submitBtn.textContent = 'Verify & Get Started';
     } else {
-      noteEl.innerHTML = 'We\'ll verify your email, then redirect to Stripe for secure payment.<br>Cancel anytime from your dashboard.';
+      noteEl.innerHTML = 'We\'ll verify your email, then redirect to Stripe for secure payment.<br>Promotion codes can be applied at Checkout. Cancel anytime from your dashboard.';
       submitBtn.textContent = 'Verify & Continue';
     }
     document.body.style.overflow = 'hidden';
@@ -1618,7 +1691,8 @@
       + '&signup_email=' + encodeURIComponent(pendingSignup.email)
       + '&signup_subdomain=' + encodeURIComponent(pendingSignup.subdomain)
       + '&signup_business=' + encodeURIComponent(pendingSignup.businessName)
-      + '&signup_captcha=' + encodeURIComponent(pendingSignup.captchaToken || '');
+      + '&signup_captcha=' + encodeURIComponent(pendingSignup.captchaToken || '')
+      + '&signup_interval=' + encodeURIComponent(pendingSignup.billingInterval || 'month');
 
     auth.sendSignInLinkToEmail(pendingSignup.email, {
       url: continueUrl,
@@ -1796,6 +1870,7 @@
       subdomain: subdomain,
       captchaToken: captchaToken,
       businessName: businessName,
+      billingInterval: selectedBillingInterval,
     };
     localStorage.setItem('mast_pending_signup', JSON.stringify(signupData));
 
@@ -1805,7 +1880,8 @@
       + '&signup_email=' + encodeURIComponent(email)
       + '&signup_subdomain=' + encodeURIComponent(subdomain)
       + '&signup_business=' + encodeURIComponent(businessName)
-      + '&signup_captcha=' + encodeURIComponent(captchaToken);
+      + '&signup_captcha=' + encodeURIComponent(captchaToken)
+      + '&signup_interval=' + encodeURIComponent(selectedBillingInterval);
 
     // Send Firebase email sign-in link
     var actionCodeSettings = {
@@ -1825,7 +1901,7 @@
         errorEl.textContent = err.message || 'Failed to send verification email. Please try again.';
         errorEl.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = selectedPlan === 'publish' ? 'Verify & Get Started' : 'Verify & Continue';
+        submitBtn.textContent = (selectedPlan === 'free' || selectedPlan === 'publish') ? 'Verify & Get Started' : 'Verify & Continue';
       });
   };
 
