@@ -952,8 +952,7 @@
 
     /* --- New components added in the rebuild --- */
 
-    /* Promo bar — amber gradient is fine on dark, but anchor needs adjusting */
-    .promo-bar a { color: #111820; }
+    /* Promo bar uses hardcoded brand colors — no dark-mode override needed. */
 
     /* Hero screenshot placeholder */
     .hero-shot {
@@ -1227,27 +1226,29 @@
     .channels-diagram { max-width: 320px; }
   }
 
-  /* ========== PROMO BAR ========== */
+  /* ========== PROMO BAR ==========
+     Hardcoded brand colors — must remain navy-on-amber regardless of theme. */
   .promo-bar {
-    background: linear-gradient(90deg, var(--amber) 0%, #d99a3e 100%);
-    color: var(--navy);
+    background: linear-gradient(90deg, #e8a84c 0%, #d99a3e 100%);
+    color: #0e1c2e;
     padding: 10px 52px;
     text-align: center;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.01em;
   }
-  .promo-bar strong { font-weight: 700; }
+  .promo-bar strong { font-weight: 700; color: #0e1c2e; }
   .promo-bar code {
-    background: rgba(14, 28, 46, 0.12);
+    background: rgba(14, 28, 46, 0.18);
+    color: #0e1c2e;
     padding: 2px 8px;
     border-radius: 4px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0 4px;
   }
-  .promo-bar a { color: var(--navy); text-decoration: underline; font-weight: 600; }
+  .promo-bar a { color: #0e1c2e; text-decoration: underline; font-weight: 600; }
 
   /* ========== HERO SCREENSHOT PLACEHOLDER ========== */
   .hero-shot {
