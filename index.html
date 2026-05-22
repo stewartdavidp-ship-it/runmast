@@ -6,18 +6,71 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mast — Your whole business, one platform.</title>
-<meta name="description" content="Mast is the all-in-one platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place.">
+<title>Mast — The operating system for small business.</title>
+<meta name="description" content="The operating system for small business. Replace your patchwork of tools — or sit on top of it. Mast syncs products, inventory, and customers across Shopify, Square, Etsy, and every other channel you sell on.">
 
 <!-- Open Graph / Social Sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://runmast.com">
-<meta property="og:title" content="Mast — Your whole business, one platform.">
-<meta property="og:description" content="One platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place.">
+<meta property="og:title" content="Mast — The operating system for small business.">
+<meta property="og:description" content="Replace your patchwork of Shopify, Square, Etsy, and spreadsheets — or run Mast alongside them. Either way, one source of truth for products, inventory, and customers across every channel.">
 <meta property="og:image" content="https://runmast.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mast — Your whole business, one platform.">
-<meta name="twitter:description" content="One platform for small businesses. Inventory, sales, marketing, shipping, and operations — finally in one place.">
+<meta name="twitter:title" content="Mast — The operating system for small business.">
+<meta name="twitter:description" content="Replace your stack — or sit on top of it. Mast syncs products, inventory, and customers across every channel you sell on.">
+
+<!-- Schema.org JSON-LD — Organization + SoftwareApplication for runmast.com.
+     Mirrors the patterns the product uses via MastSchema (schema-org.js) on
+     tenant storefronts, but kept inline here since the marketing apex page
+     doesn't load the tenant runtime. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://runmast.com/#organization",
+      "name": "Mast",
+      "url": "https://runmast.com",
+      "logo": "https://runmast.com/og-image.png",
+      "description": "The operating system for small business. One platform for sell, make, ship, market, run, and show — replacing or unifying the patchwork of tools small businesses cobble together.",
+      "sameAs": []
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://runmast.com/#website",
+      "url": "https://runmast.com",
+      "name": "Mast",
+      "publisher": { "@id": "https://runmast.com/#organization" },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Mast",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://runmast.com",
+      "description": "All-in-one platform for small businesses to sell, make, ship, market, run, and show. Syncs products, inventory, and customers across every channel — Shopify, Square, Etsy, your own site, and in-person fairs.",
+      "publisher": { "@id": "https://runmast.com/#organization" },
+      "offers": [
+        { "@type": "Offer", "name": "Free",    "price": "0",  "priceCurrency": "USD", "category": "subscription" },
+        { "@type": "Offer", "name": "Starter", "price": "19", "priceCurrency": "USD", "category": "subscription" },
+        { "@type": "Offer", "name": "Growth",  "price": "49", "priceCurrency": "USD", "category": "subscription" },
+        { "@type": "Offer", "name": "Scale",   "price": "79", "priceCurrency": "USD", "category": "subscription" }
+      ],
+      "featureList": [
+        "Point of sale and online storefront",
+        "Production and inventory tracking",
+        "Order fulfillment and shipping labels",
+        "Email and social marketing",
+        "Craft fair and event management",
+        "Bookkeeping, mileage, and expense tracking",
+        "Cross-channel product, inventory, and customer sync"
+      ]
+    }
+  ]
+}
+</script>
 
 <!-- Favicon (inline SVG data URI — the Mast mark) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='13' y='2' width='4' height='28' rx='2' fill='%230e1c2e'/%3E%3Cpath d='M17 4 L28 10 L17 17Z' fill='%23e8a84c'/%3E%3Cpath d='M17 19 L25 23.5 L17 28Z' fill='%230e1c2e' opacity='0.2'/%3E%3C/svg%3E">
@@ -896,9 +949,605 @@
 
     /* Hero section body text */
     .hero-body { color: var(--soft) !important; }
+
+    /* --- New components added in the rebuild --- */
+
+    /* Promo bar — amber gradient is fine on dark, but anchor needs adjusting */
+    .promo-bar a { color: #111820; }
+
+    /* Hero screenshot placeholder */
+    .hero-shot {
+      background: linear-gradient(160deg, #1a2233 0%, #111820 100%) !important;
+      border-color: var(--border) !important;
+      box-shadow: 0 24px 48px -16px rgba(0,0,0,0.5) !important;
+    }
+    .hero-shot-title { color: #f0ebe0 !important; }
+    .hero-shot-note { color: var(--soft) !important; }
+
+    /* Hero micro-proof */
+    .hero-microproof { color: var(--soft) !important; }
+    .hero-microproof strong { color: #f0ebe0 !important; }
+
+    /* Sub-hero quote strip */
+    .quote-strip { background: #161d28 !important; border-color: var(--border) !important; }
+    .quote-strip-text { color: #f0ebe0 !important; }
+
+    /* Channels section — dark gradient instead of cream */
+    .channels-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #0d1218 100%) !important;
+      border-color: var(--border) !important;
+    }
+    .channels-left h2 { color: #f0ebe0 !important; }
+    .channels-left .channels-lead { color: var(--soft) !important; }
+    .channels-left .channels-lead strong { color: #f0ebe0 !important; }
+    .channels-mode {
+      background: #1a2233 !important;
+      border-color: var(--border) !important;
+    }
+    .channels-mode-title { color: #f0ebe0 !important; }
+    .channels-mode-detail { color: var(--soft) !important; }
+    .channels-hub {
+      background: var(--amber) !important;
+      box-shadow: 0 16px 32px -10px rgba(0,0,0,0.6) !important;
+    }
+    .channels-hub-mark { color: #111820 !important; }
+    .channels-hub-label { color: #111820 !important; opacity: 0.75; }
+    .channels-node {
+      background: #1a2233 !important;
+      border-color: var(--border) !important;
+      box-shadow: 0 6px 14px -6px rgba(0,0,0,0.5) !important;
+    }
+    .channels-node-name { color: #f0ebe0 !important; }
+
+    /* "Every plan includes" strip */
+    .plan-includes {
+      background: #1a2233 !important;
+      border-color: var(--border) !important;
+    }
+    .plan-includes-item { color: var(--soft) !important; }
+
+    /* Growth-tier promo tag */
+    .promo-tag {
+      background: rgba(232, 168, 76, 0.18) !important;
+      color: var(--amber) !important;
+    }
+    .promo-tag code { background: rgba(0,0,0,0.3) !important; color: var(--amber) !important; }
+
+    /* Phone mockups in E2E section */
+    .phone-mock { background: #0a1018 !important; box-shadow: 0 6px 14px -6px rgba(0,0,0,0.6) !important; }
+    .phone-mock-inner { background: linear-gradient(180deg, #1a2233 0%, #0d1218 100%) !important; color: var(--amber) !important; }
+
+    /* Site footer — navy base is fine, but dark mode's :root flips --navy to cream */
+    /* Keep the footer dark regardless of theme by using literal colors. */
+    footer.site-footer { background: #0a1018 !important; }
+    footer.site-footer .footer-wordmark { color: #f0ebe0 !important; }
+    footer.site-footer .footer-brand-col p { color: #9ab0c8 !important; }
+    footer.site-footer .footer-col h4 { color: #f0ebe0 !important; }
+    footer.site-footer .footer-col a { color: #9ab0c8 !important; }
+    footer.site-footer .footer-col a:hover { color: #f0ebe0 !important; }
+    footer.site-footer .footer-bottom-left { color: #6a8aaa !important; }
+    footer.site-footer .footer-newsletter input { color: #f0ebe0 !important; }
+    footer.site-footer .footer-newsletter button { color: #111820 !important; }
+    footer.site-footer .footer-social a { color: #f0ebe0 !important; }
+  }
+
+  /* ========== CLOSING CTA STRIP ==========
+     Hardcoded brand colors — must remain dark in both light + dark mode. */
+  .closing-cta {
+    background: #0e1c2e;
+    padding: 64px 52px;
+    text-align: center;
+  }
+  .closing-cta-h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(26px, 3vw, 36px);
+    color: #f0ebe0;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .closing-cta-lead {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9ab0c8;
+    margin-bottom: 32px;
+  }
+  .closing-cta-btn {
+    font-size: 16px;
+    padding: 18px 36px;
+    background: #e8a84c;
+    color: #0e1c2e;
+  }
+  .closing-cta-btn:hover { background: #d99a3e; }
+  .closing-cta-foot {
+    font-size: 13px;
+    color: #6a8aaa;
+    margin-top: 24px;
+  }
+  .closing-cta-foot a {
+    color: #e8a84c;
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    .closing-cta { padding: 48px 24px; }
+  }
+
+  /* ========== CHANNEL SYNC SECTION ========== */
+  .channels-section {
+    background: linear-gradient(180deg, var(--bg) 0%, #f4ede0 100%);
+    padding: 88px 52px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .channels-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .channels-left h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 3.4vw, 40px);
+    letter-spacing: -0.025em;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .channels-left .channels-lead {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--soft);
+    margin-bottom: 20px;
+  }
+  .channels-left .channels-lead strong { font-weight: 500; color: var(--navy); }
+  .channels-modes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .channels-mode {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .channels-mode-tag {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    flex-shrink: 0;
+    width: 44px;
+    padding-top: 2px;
+  }
+  .channels-mode-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .channels-mode-detail {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .channels-diagram {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .channels-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 16px 32px -10px rgba(14, 28, 46, 0.35);
+    z-index: 2;
+  }
+  .channels-hub-mark {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+  }
+  .channels-hub-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-top: 4px;
+  }
+  .channels-node {
+    position: absolute;
+    width: 96px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 8px;
+    text-align: center;
+    box-shadow: 0 6px 14px -6px rgba(14, 28, 46, 0.2);
+    z-index: 2;
+  }
+  .channels-node-icon {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .channels-node-name {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .channels-node-1 { top: 4%;  left: 50%; transform: translateX(-50%); }
+  .channels-node-2 { top: 28%; right: 0; }
+  .channels-node-3 { bottom: 28%; right: 0; }
+  .channels-node-4 { bottom: 4%; left: 50%; transform: translateX(-50%); }
+  .channels-node-5 { bottom: 28%; left: 0; }
+  .channels-node-6 { top: 28%; left: 0; }
+  .channels-diagram svg.channels-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
   }
 
   @media (max-width: 768px) {
+    .channels-section { padding: 56px 24px; }
+    .channels-inner { grid-template-columns: 1fr; gap: 40px; }
+    .channels-diagram { max-width: 320px; }
+  }
+
+  /* ========== PROMO BAR ========== */
+  .promo-bar {
+    background: linear-gradient(90deg, var(--amber) 0%, #d99a3e 100%);
+    color: var(--navy);
+    padding: 10px 52px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .promo-bar strong { font-weight: 700; }
+  .promo-bar code {
+    background: rgba(14, 28, 46, 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 4px;
+  }
+  .promo-bar a { color: var(--navy); text-decoration: underline; font-weight: 600; }
+
+  /* ========== HERO SCREENSHOT PLACEHOLDER ========== */
+  .hero-shot {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    background: linear-gradient(160deg, #fff 0%, #f4ede0 100%);
+    border: 1.5px solid var(--border);
+    box-shadow: 0 24px 48px -16px rgba(14, 28, 46, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-shot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(232, 168, 76, 0.10), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(14, 28, 46, 0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .hero-shot-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber2);
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero-shot-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero-shot-note {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 240px;
+    position: relative;
+  }
+
+  .hero-microproof {
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .hero-microproof strong { color: var(--soft); font-weight: 500; }
+
+  /* ========== SUB-HERO QUOTE STRIP ========== */
+  .quote-strip {
+    background: var(--bg);
+    padding: 48px 52px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .quote-strip-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .quote-strip-mark {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 0.8;
+    color: var(--amber);
+    margin-bottom: 12px;
+  }
+  .quote-strip-text {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 2.4vw, 26px);
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .quote-strip-attr {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber2);
+  }
+
+  /* ========== EVERY PLAN INCLUDES ========== */
+  .plan-includes {
+    margin-top: 32px;
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+    justify-content: center;
+  }
+  .plan-includes-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber2);
+  }
+  .plan-includes-item {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .plan-includes-item::before {
+    content: '✓';
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .promo-tag {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background: rgba(232, 168, 76, 0.18);
+    color: var(--amber2);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .promo-tag code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(14, 28, 46, 0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+  }
+
+  /* ========== PHONE MOCKUP (E2E steps) ========== */
+  .phone-mock {
+    width: 64px;
+    aspect-ratio: 9 / 19;
+    background: var(--navy);
+    border-radius: 8px;
+    flex-shrink: 0;
+    padding: 4px;
+    box-shadow: 0 6px 14px -6px rgba(14, 28, 46, 0.35);
+  }
+  .phone-mock-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #fff 0%, #f4ede0 100%);
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 6px 4px;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--amber2);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .step { align-items: center !important; }
+
+  /* ========== REAL FOOTER ========== */
+  footer.site-footer {
+    background: var(--navy);
+    padding: 64px 52px 32px;
+    display: block;
+  }
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(240, 235, 224, 0.12);
+  }
+  .footer-brand-col .footer-wordmark {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+  .footer-brand-col p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #9ab0c8;
+    margin-bottom: 20px;
+    max-width: 280px;
+  }
+  .footer-newsletter {
+    display: flex;
+    gap: 6px;
+    max-width: 300px;
+  }
+  .footer-newsletter input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(240, 235, 224, 0.18);
+    background: rgba(240, 235, 224, 0.06);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+  }
+  .footer-newsletter input::placeholder { color: rgba(240, 235, 224, 0.5); }
+  .footer-newsletter button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    background: var(--amber);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .footer-col h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 13px;
+    font-weight: 400;
+    color: #9ab0c8;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-bottom-left {
+    font-size: 12px;
+    font-weight: 300;
+    color: #6a8aaa;
+    font-style: italic;
+  }
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social a {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(240, 235, 224, 0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .footer-social a:hover { background: rgba(240, 235, 224, 0.16); }
+
+  @media (max-width: 768px) {
+    .promo-bar { padding: 10px 16px; font-size: 12px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding-bottom: 32px; }
+    .footer-brand-col { grid-column: 1 / -1; }
+    .hero-shot { aspect-ratio: 4 / 3; }
     nav { padding: 20px 24px; }
     .nav-links { gap: 16px; }
     .nav-link { display: none; }
@@ -963,6 +1612,10 @@
 </div>
 <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
 
+<div class="promo-bar">
+  <strong>Launch promo</strong> — 3 months free on the Growth plan. Use code <code>3months4free</code> at checkout. <a href="#pricing">See plans →</a>
+</div>
+
 <nav>
   <a class="logo-lockup" href="#">
     <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
@@ -974,34 +1627,38 @@
   </a>
   <div class="nav-links">
     <a class="nav-link" href="#modules">Features</a>
+    <a class="nav-link" href="#channels">Channels</a>
+    <a class="nav-link" href="#how-it-works">How it works</a>
     <a class="nav-link" href="#pricing">Pricing</a>
-    <a class="nav-cta" href="#pricing">Get Started</a>
+    <a class="nav-cta" href="#" onclick="event.preventDefault(); openSignup('free', 'Free');">Start free</a>
   </div>
 </nav>
 
 <div class="hero">
   <div class="hero-left">
-    <div class="eyebrow"><span class="pulse"></span>Built for the small business</div>
+    <div class="eyebrow"><span class="pulse"></span>The operating system for small business</div>
     <h1>You built it.<br>We help you<br><span class="amber">run it.</span></h1>
     <p class="hero-body">
-      You're putting in 12-hour days — making, selling, shipping, and somehow still catching up on admin at midnight.
-      <br><br>
-      Most owners patch it together with whatever's free. Then the rules change. The free tier shrinks. The price goes up. You're locked in, paying more, and <strong>none of it talks to each other</strong>.
-      <br><br>
-      Mast is built around how a small business actually works. Simple, not sophisticated. Complete, not everything. At a price built for a business your size.
+      Mast is one platform for everything you do — <strong>sell, make, ship, market, run, show</strong>. <strong>Replace your patchwork of tools, or sit on top of it.</strong> Either way, Mast keeps your products, inventory, and customers in sync across every channel you sell on — so a price change here, a stock change there, never falls through the cracks again.
     </p>
     <div class="hero-ctas">
-      <a class="btn-primary" href="#pricing">See Plans &amp; Pricing</a>
-      <a class="btn-secondary" href="#modules">See What's Included</a>
+      <a class="btn-primary" href="#" onclick="event.preventDefault(); openSignup('free', 'Free');">Start free →</a>
+      <a class="btn-secondary" href="#how-it-works">See how it works</a>
+    </div>
+    <div class="hero-microproof">
+      Free forever tier. No credit card required.<br>
+      <strong>Built with Shir Glassworks</strong> and a growing community of small businesses.
     </div>
   </div>
 
   <div class="hero-right">
-    <svg width="240" height="400" viewBox="0 0 240 400" fill="none" opacity="0.07">
-      <rect x="112" y="0" width="16" height="400" rx="8" fill="#0e1c2e"/>
-      <path d="M128 8 L220 52 L128 96 Z" fill="#e8a84c"/>
-      <path d="M128 108 L196 140 L128 172 Z" fill="#0e1c2e"/>
-    </svg>
+    <!-- TODO: replace with real product screenshot. Suggested: POS-on-phone or
+         dashboard view exported from the admin app. Aspect 4:5 preferred. -->
+    <div class="hero-shot" role="img" aria-label="Mast product preview">
+      <div class="hero-shot-label">Product preview</div>
+      <div class="hero-shot-title">A sale at a craft fair, end to end</div>
+      <div class="hero-shot-note">[ Drop in a real product screenshot here — POS on a phone, dashboard, or scrolling workflow GIF. Keep aspect ratio close to 4:5. ]</div>
+    </div>
   </div>
 </div>
 
@@ -1025,23 +1682,32 @@
   </div>
 </div>
 
+<!-- Sub-hero quote strip: lifts the strongest line of social proof above pricing -->
+<div class="quote-strip">
+  <div class="quote-strip-inner">
+    <div class="quote-strip-mark">&ldquo;</div>
+    <p class="quote-strip-text">We were spending more time managing spreadsheets, receipts, and five different apps than we were actually making glass. That's not why we started this.</p>
+    <div class="quote-strip-attr">Ori &amp; Madeline — Shir Glassworks</div>
+  </div>
+</div>
+
 <div class="modules-section" id="modules">
   <div class="section-header">
     <div class="section-eyebrow">Everything in one place</div>
     <h2>Your whole business,<br>one platform.</h2>
-    <p>Mast is built around the way small businesses actually work — from making to selling, shipping to marketing, and everything in between.</p>
+    <p>Nine modules, one login, one bill. Mast replaces the six-app stack most small businesses cobble together — and connects every piece so a sale, a stock change, or a customer email shows up everywhere it should.</p>
     <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Built for the small business</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">9 modules · 1 login · 1 bill</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Tested with a small business</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Replaces — or unifies — your stack</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="width:8px;height:8px;border-radius:50%;background:#e8a84c;display:inline-block;"></span>
-        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Ready to help you run yours</span>
+        <span class="module-dot-label" style="font-size:13px;font-weight:500;color:#0e1c2e;">Your data, your site, your customers</span>
       </div>
     </div>
   </div>
@@ -1050,47 +1716,141 @@
     <div class="module-card">
       <span class="module-icon">&#128179;</span>
       <div class="module-name">Sell</div>
-      <div class="module-desc">Point of sale, order management, inventory, coupons, and payment processing — built for how you actually sell.</div>
+      <div class="module-desc">Tap-to-pay POS on your phone, online checkout, orders, coupons, gift cards, and refunds — one inventory across every channel you sell on.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#128296;</span>
       <div class="module-name">Make</div>
-      <div class="module-desc">Production tracking, inventory, and job management built for makers who create physical products.</div>
+      <div class="module-desc">Track every product from raw materials to ready-to-ship. Photos, batches, cost, and stock — one timeline per item.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#128230;</span>
       <div class="module-name">Ship</div>
-      <div class="module-desc">Fulfillment tracking, label generation, and delivery management — from the moment an order is placed.</div>
+      <div class="module-desc">Buy labels at a discount, track packages, and update customers automatically — from the second an order lands to the porch drop.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#128227;</span>
       <div class="module-name">Market</div>
-      <div class="module-desc">Newsletter, content scheduling, and customer outreach — without leaving the platform.</div>
-    </div>
-    <div class="module-card">
-      <span class="module-icon">&#127914;</span>
-      <div class="module-name">Show</div>
-      <div class="module-desc">Manage markets, fairs, pop-ups, and events from application to close. Staffing, prep, and logistics all in one place.</div>
+      <div class="module-desc">Send newsletters, schedule social posts, and re-engage past customers using the data already in Mast — no exports, no list uploads.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#127939;</span>
       <div class="module-name">Run</div>
-      <div class="module-desc">Mileage tracking, expense logging, customer records, and business reports — the operational layer that keeps things moving.</div>
+      <div class="module-desc">Mileage, expenses, bank feeds, customer records, and P&amp;L. The bookkeeping layer that adds itself up as you work.</div>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">&#127914;</span>
+      <div class="module-name">Show</div>
+      <div class="module-desc">Run craft fairs, markets, pop-ups, and trunk shows end to end — booth prep, on-site sales, and post-event recap from one screen.</div>
     </div>
     <div class="module-card">
       <span class="module-icon">&#127760;</span>
-      <div class="module-name">Web</div>
-      <div class="module-desc">Pages, blog, and site content management. Your public story, built and updated from inside the platform.</div>
+      <div class="module-name">Storefront</div>
+      <div class="module-desc">Your customer-facing site at <span style="color:var(--amber2);font-weight:500;">yourname.runmast.com</span> — pages, blog, SEO, and shop layout, edited from inside the app.</div>
     </div>
-    <div class="module-card" style="position:relative;">
+    <div class="module-card">
       <span class="module-icon">&#128197;</span>
-      <div class="module-name">Book <span style="font-size:10px;font-weight:500;background:var(--amber);color:var(--navy);padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">Coming Soon</span></div>
-      <div class="module-desc">Appointments, reservations, and class bookings — for businesses that run on a schedule.</div>
+      <div class="module-name">Classes</div>
+      <div class="module-desc">Sell classes, workshops, and private sessions. Schedules, seats, waivers, and waitlists — students self-book and pay in one flow.</div>
     </div>
     <div class="module-card" style="background:rgba(14,28,46,0.03);">
       <span class="module-icon">&#9881;&#65039;</span>
       <div class="module-name">Manage <span style="font-size:10px;font-weight:500;color:var(--amber2);margin-left:6px;">Always included</span></div>
       <div class="module-desc">Team access, permissions, audit trails, and settings — the controls you need as your business grows.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CHANNELS / CROSS-CHANNEL SYNC ==========
+     Positioning: Mast complements OR replaces Shopify/Square/Etsy.
+     Lowers switching cost — converts "I already have Shopify" objection
+     into a feature. Sits before pricing for max conversion impact. -->
+<div class="channels-section" id="channels">
+  <div class="channels-inner">
+    <div class="channels-left">
+      <div class="section-eyebrow">Works with what you already use</div>
+      <h2>Replace your stack.<br>Or sit on top of it.</h2>
+      <p class="channels-lead">
+        Most small businesses sell on more than one channel — and that's where things break. A product description gets updated in one place but not the other. Stock sells out on Etsy while Shopify keeps taking orders. The customer who bought at the fair never makes it into your newsletter list.
+      </p>
+      <p class="channels-lead">
+        <strong>Mast is the source of truth that keeps every channel in sync.</strong> Edit a product once, update everywhere. One inventory, one customer list, one set of numbers — no matter how many storefronts you run.
+      </p>
+      <div class="channels-modes">
+        <div class="channels-mode">
+          <div class="channels-mode-tag">A</div>
+          <div>
+            <div class="channels-mode-title">Replace mode — go all-in on Mast</div>
+            <div class="channels-mode-detail">Drop your Shopify/Square/Etsy subscriptions. Run sales, site, marketing, and books on Mast. One bill, one login, fewer moving parts.</div>
+          </div>
+        </div>
+        <div class="channels-mode">
+          <div class="channels-mode-tag">B</div>
+          <div>
+            <div class="channels-mode-title">Side-by-side mode — keep your existing channels</div>
+            <div class="channels-mode-detail">Keep selling on Shopify, Etsy, Square, or anywhere else. Mast sits behind them as the one product, inventory, and customer system — pushing updates out, pulling orders in.</div>
+          </div>
+        </div>
+        <div class="channels-mode">
+          <div class="channels-mode-tag">C</div>
+          <div>
+            <div class="channels-mode-title">Hybrid mode — pick and choose</div>
+            <div class="channels-mode-detail">Sell on your Mast storefront <em>and</em> Etsy. Take fair sales on Mast POS while keeping Shopify for wholesale. Mast doesn't care — your inventory still adds up.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channels-diagram" role="img" aria-label="Mast as the central hub connecting your sales channels">
+      <!-- Connector lines from each peripheral node to the center hub -->
+      <svg class="channels-lines" viewBox="0 0 460 460" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="channelLine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e8a84c" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#0e1c2e" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+        <!-- 6 lines, each from a node toward center (230, 230) -->
+        <line x1="230" y1="50"  x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="410" y1="155" x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="410" y1="305" x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="230" y1="410" x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="50"  y1="305" x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="50"  y1="155" x2="230" y2="230" stroke="url(#channelLine)" stroke-width="2" stroke-dasharray="4 4"/>
+      </svg>
+
+      <div class="channels-hub">
+        <div class="channels-hub-mark">Mast</div>
+        <div class="channels-hub-label">Source of truth</div>
+      </div>
+
+      <!-- TODO: swap emoji icons for real channel logos (Shopify green-bag,
+           Square diamond, Etsy "E", Faire wordmark, Instagram, your-site).
+           Order: top, top-right, bottom-right, bottom, bottom-left, top-left. -->
+      <div class="channels-node channels-node-1">
+        <div class="channels-node-icon">&#128722;</div>
+        <div class="channels-node-name">Shopify</div>
+      </div>
+      <div class="channels-node channels-node-2">
+        <div class="channels-node-icon">&#128181;</div>
+        <div class="channels-node-name">Square</div>
+      </div>
+      <div class="channels-node channels-node-3">
+        <div class="channels-node-icon">&#127981;</div>
+        <div class="channels-node-name">Etsy</div>
+      </div>
+      <div class="channels-node channels-node-4">
+        <div class="channels-node-icon">&#127760;</div>
+        <div class="channels-node-name">Your site</div>
+      </div>
+      <div class="channels-node channels-node-5">
+        <div class="channels-node-icon">&#128241;</div>
+        <div class="channels-node-name">Instagram</div>
+      </div>
+      <div class="channels-node channels-node-6">
+        <div class="channels-node-icon">&#127914;</div>
+        <div class="channels-node-name">Fairs &amp; markets</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1101,7 +1861,7 @@
     <div class="section-header">
       <div class="section-eyebrow">Simple pricing</div>
       <h2>One platform. Every stage of your business.</h2>
-      <p>Start free, then upgrade as your revenue grows. Tokens, coin bonus, and integrations scale with your plan — no surprises.</p>
+      <p>Start free, then upgrade as your revenue grows. Every plan includes all 9 modules, unlimited products, unlimited orders, and your own site at <span style="color:var(--amber2);font-weight:500;">yourname.runmast.com</span>. The plans differ in how much AI you can use, how many bank accounts you connect, and the support you get.</p>
     </div>
 
     <!-- V1 billing-interval toggle (F-M1d) -->
@@ -1115,80 +1875,97 @@
       <!-- FREE (V1) -->
       <div class="price-card" data-plan="free">
         <div class="price-tier">Free</div>
-        <div class="price-tagline">Get on Mast. Start building.</div>
+        <div class="price-tagline">Get on Mast. Start running your business.</div>
         <div class="price-amount">
           <span class="price-dollar" data-price-month="Free" data-price-year="Free">Free</span>
         </div>
-        <div class="price-note">No credit card required.</div>
+        <div class="price-note">Forever. No credit card required.</div>
         <ul class="price-features">
-          <li>250 tokens / month</li>
-          <li>0% coin purchase bonus</li>
-          <li>0 Plaid accounts</li>
-          <li>Email metering applies</li>
-          <li>BYO Anthropic + Resend supported</li>
+          <li>All 9 modules, unlimited products &amp; orders</li>
+          <li>Your own site at <span style="color:var(--amber2);font-weight:500;">yourname.runmast.com</span></li>
+          <li>Try AI features (small monthly allowance)</li>
+          <li>Bring-your-own Anthropic + Resend keys</li>
+          <li>Community support</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('free', 'Free')">Get Started Free</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('free', 'Free')">Start free →</button>
       </div>
 
       <!-- STARTER (V1) -->
       <div class="price-card" data-plan="starter">
         <div class="price-tier">Starter</div>
-        <div class="price-tagline">First revenue, real tools.</div>
+        <div class="price-tagline">First customers, real tools.</div>
         <div class="price-amount">
           <span class="price-dollar" data-price-month="$19" data-price-year="$190">$19</span>
           <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
         <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>750 tokens / month</li>
-          <li>+15% coin purchase bonus</li>
-          <li>Up to 5 Plaid accounts</li>
-          <li>+20% email-only buffer</li>
+          <li>Everything in Free, plus:</li>
           <li>Ask AI + Studio Assistant included</li>
+          <li>Connect up to 5 bank accounts for auto-bookkeeping</li>
+          <li>Higher email-send allowance</li>
+          <li>Email support</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('starter')">Get Started</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('starter')">Choose Starter</button>
       </div>
 
       <!-- GROWTH (V1, featured) -->
       <div class="price-card featured" data-plan="growth">
         <div class="price-badge">Most Popular</div>
         <div class="price-tier">Growth</div>
-        <div class="price-tagline">Scaling past $1K/month.</div>
+        <div class="price-tagline">Scaling past $1K/month in sales.</div>
         <div class="price-amount">
           <span class="price-dollar" data-price-month="$49" data-price-year="$490">$49</span>
           <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
         <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
-        <ul class="price-features">
-          <li>2,500 tokens / month</li>
-          <li>+30% coin purchase bonus</li>
-          <li>Up to 15 Plaid accounts</li>
-          <li>+20% email-only buffer</li>
-          <li>All AI features + priority support</li>
+        <div class="promo-tag">3 months free with <code>3months4free</code></div>
+        <ul class="price-features" style="margin-top:16px;">
+          <li>Everything in Starter, plus:</li>
+          <li>All AI features unlocked (Ask AI, Studio Assistant, smart pricing)</li>
+          <li>Connect up to 15 bank accounts</li>
+          <li>Priority support — replies within 1 business day</li>
+          <li>Higher AI allowance (most users never hit the cap)</li>
         </ul>
-        <button class="price-cta price-cta-primary" onclick="openSignup('growth')">Get Started</button>
+        <button class="price-cta price-cta-primary" onclick="openSignup('growth')">Choose Growth →</button>
       </div>
 
       <!-- SCALE (V1) -->
       <div class="price-card" data-plan="scale">
         <div class="price-tier">Scale</div>
-        <div class="price-tagline">Multi-channel, multi-team.</div>
+        <div class="price-tagline">Multi-channel, multi-team businesses.</div>
         <div class="price-amount">
           <span class="price-dollar" data-price-month="$79" data-price-year="$790">$79</span>
           <span class="price-period" data-period-month="/month" data-period-year="/year">/month</span>
         </div>
         <div class="price-note" data-note-month="Billed monthly. Cancel anytime." data-note-year="Billed annually — 2 months free.">Billed monthly. Cancel anytime.</div>
         <ul class="price-features">
-          <li>10,000 tokens / month</li>
-          <li>+50% coin purchase bonus</li>
-          <li>Up to 50 Plaid accounts</li>
-          <li>+20% email-only buffer</li>
-          <li>Auto-upgrade by revenue + full AI</li>
+          <li>Everything in Growth, plus:</li>
+          <li>Connect up to 50 bank accounts</li>
+          <li>Highest AI allowance for power users</li>
+          <li>Auto-upgrade by revenue (never over-pay or hit caps)</li>
+          <li>Priority onboarding</li>
         </ul>
-        <button class="price-cta price-cta-secondary" onclick="openSignup('scale')">Get Started</button>
+        <button class="price-cta price-cta-secondary" onclick="openSignup('scale')">Choose Scale</button>
       </div>
 
     </div>
+
+    <!-- "Every plan includes" strip — clarifies what's shared so visitors don't
+         assume the Free tier is crippled. -->
+    <div class="plan-includes">
+      <span class="plan-includes-label">Every plan includes</span>
+      <span class="plan-includes-item">All 9 modules</span>
+      <span class="plan-includes-item">Unlimited products</span>
+      <span class="plan-includes-item">Unlimited orders</span>
+      <span class="plan-includes-item">Your own site &amp; subdomain</span>
+      <span class="plan-includes-item">Tap-to-pay POS</span>
+      <span class="plan-includes-item">Cancel anytime</span>
+    </div>
+
+    <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted);max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      <strong style="color:var(--soft);">A note on AI usage:</strong> Mast bills AI features by a small unit we call a <em>token</em> — one is enough for a quick "Ask AI" question; complex tasks use a few more. Most makers on Growth never hit the cap. <a href="#" style="color:var(--amber2);">How tokens work →</a>
+    </p>
 
     <!-- EVENTS TIER — separate callout. HIDDEN 2026-05-22 per product
          direction: not the launch target audience. Event organizers will
@@ -1232,11 +2009,36 @@
         Mast didn't start in a lab — it was built alongside a working glass art studio.
         Every feature was designed around a real problem that real small business owners face every day.
       </p>
-      <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;">
+      <p style="font-size:16px;font-weight:300;line-height:1.75;color:#555;margin-bottom:24px;">
         Shir Glassworks has been our first partner from day one — helping us build something that actually works in the real world, not just in theory.
       </p>
+      <!-- TODO: add real Shir Glassworks impact numbers once we have them
+           (orders processed, customers managed, events run, hours saved/week). -->
+      <div style="display:flex;gap:24px;flex-wrap:wrap;padding-top:8px;border-top:1px solid #e4ddd4;">
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:900;font-size:28px;color:#0e1c2e;letter-spacing:-0.02em;">[N]</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;">Orders run on Mast</div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:900;font-size:28px;color:#0e1c2e;letter-spacing:-0.02em;">[N]</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;">Events managed</div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:900;font-size:28px;color:#0e1c2e;letter-spacing:-0.02em;">[N]</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;">Hours saved/week</div>
+        </div>
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px;">
+      <!-- TODO: replace with a real photo of the Shir Glassworks studio,
+           Ori/Madeline at the bench, or a finished piece. Aspect 4:3. -->
+      <div style="aspect-ratio:4/3;border-radius:12px;background:linear-gradient(135deg,#e8a84c 0%,#b8742a 45%,#0e1c2e 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;border:1px solid #e4ddd4;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 55%);pointer-events:none;"></div>
+        <div style="position:relative;">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,235,224,0.7);margin-bottom:8px;">Studio photo</div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;color:#f0ebe0;line-height:1.4;max-width:240px;">[ Drop in a real photo of Ori &amp; Madeline at the bench, or a finished glass piece on a market table. ]</div>
+        </div>
+      </div>
       <div style="background:#fff;border-radius:12px;padding:24px 28px;border:1px solid #e4ddd4;">
         <div style="font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#b8742a;margin-bottom:8px;">What they told us</div>
         <p style="font-size:15px;font-weight:300;line-height:1.7;color:#444;font-style:italic;">"We were spending more time managing spreadsheets, receipts, and five different apps than we were actually making glass. That's not why we started this."</p>
@@ -1257,17 +2059,20 @@
   </div>
 </div>
 
-<div class="e2e-section">
+<div class="e2e-section" id="how-it-works">
   <div class="e2e-inner">
     <div class="e2e-left">
       <div class="section-eyebrow" style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber2);margin-bottom:12px;">End to end</div>
       <h2>From idea to customer, without switching tabs.</h2>
-      <p>Here's what a single sale at a craft fair looks like when the whole business runs on Mast. Every step connected, every detail captured.</p>
+      <p>Here's what a single sale looks like when the whole business runs on Mast. Every step connected, every detail captured.</p>
       <p>No copy-pasting between apps. No reconciling numbers at the end of the day. No wondering where that customer's details went.</p>
     </div>
     <div class="e2e-right">
+      <!-- TODO: each .phone-mock is a placeholder for a real phone-frame
+           screenshot of that step (Make / Show / Sell / Market / Run). -->
       <div class="step">
         <span class="step-num">01</span>
+        <div class="phone-mock" aria-hidden="true"><div class="phone-mock-inner">Make</div></div>
         <div class="step-content">
           <div class="step-module">Make</div>
           <div class="step-title">Product is created and logged</div>
@@ -1276,6 +2081,7 @@
       </div>
       <div class="step">
         <span class="step-num">02</span>
+        <div class="phone-mock" aria-hidden="true"><div class="phone-mock-inner">Show</div></div>
         <div class="step-content">
           <div class="step-module">Show</div>
           <div class="step-title">Fair setup takes minutes</div>
@@ -1284,6 +2090,7 @@
       </div>
       <div class="step">
         <span class="step-num">03</span>
+        <div class="phone-mock" aria-hidden="true"><div class="phone-mock-inner">Sell</div></div>
         <div class="step-content">
           <div class="step-module">Sell</div>
           <div class="step-title">Customer pays at the booth</div>
@@ -1292,6 +2099,7 @@
       </div>
       <div class="step">
         <span class="step-num">04</span>
+        <div class="phone-mock" aria-hidden="true"><div class="phone-mock-inner">Market</div></div>
         <div class="step-content">
           <div class="step-module">Market</div>
           <div class="step-title">Post about it while it's fresh</div>
@@ -1300,6 +2108,7 @@
       </div>
       <div class="step">
         <span class="step-num">05</span>
+        <div class="phone-mock" aria-hidden="true"><div class="phone-mock-inner">Run</div></div>
         <div class="step-content">
           <div class="step-module">Run</div>
           <div class="step-title">Drive home, log your miles</div>
@@ -1310,16 +2119,75 @@
   </div>
 </div>
 
-<footer>
-  <div class="footer-left">
-    <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
-      <rect x="6.5" y="0" width="2.5" height="28" rx="1.25" fill="#ccc"/>
-      <path d="M9 1 L16 5 L9 9.5 Z" fill="#e8a84c" opacity="0.6"/>
-      <path d="M9 11 L14.5 14.5 L9 18 Z" fill="#ccc" opacity="0.3"/>
-    </svg>
-    <span class="footer-tagline">You built it, we help you run it.</span>
+<!-- Closing CTA strip — gives soft leads an email-capture path before the footer.
+     Hardcoded colors (not var(--navy)/var(--cream)) so the section stays dark
+     regardless of color scheme — those tokens are semantic and flip in dark
+     mode, which would invert this section in a way we don't want. -->
+<div class="closing-cta">
+  <div style="max-width:720px;margin:0 auto;">
+    <h2 class="closing-cta-h2">Ready to stop juggling apps?</h2>
+    <p class="closing-cta-lead">Start free in under 60 seconds. No credit card, no commitment. You can always upgrade later — or stay on the Free plan forever.</p>
+    <a class="btn-primary closing-cta-btn" href="#" onclick="event.preventDefault(); openSignup('free', 'Free');">Start free →</a>
+    <p class="closing-cta-foot">Not ready? <a href="#">Get the maker's guide to running a one-person shop</a> — one email a month, no fluff.</p>
   </div>
-  <span class="footer-right">runmast.com</span>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand-col">
+      <span class="footer-wordmark">Mast</span>
+      <p>The operating system for small business. One platform replacing the six-app stack — built for the work you actually do.</p>
+      <form class="footer-newsletter" onsubmit="event.preventDefault(); /* TODO: wire to newsletter endpoint */ alert('Thanks — we’ll be in touch.');">
+        <input type="email" placeholder="your@email.com" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#modules">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#" onclick="event.preventDefault(); openSignup('free', 'Free');">Start free</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="/ai.html">For AI &amp; LLMs</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Help center</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Customers</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="mailto:hello@runmast.com">hello@runmast.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+        <li><a href="/security.html">Security</a></li>
+        <li><a href="/dpa.html">DPA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">© Mast 2026 · You built it, we help you run it.</div>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="X / Twitter">X</a>
+      <a href="#" aria-label="TikTok">TT</a>
+      <a href="#" aria-label="LinkedIn">in</a>
+    </div>
+  </div>
 </footer>
 
 <!-- hCaptcha -->
